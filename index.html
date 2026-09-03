@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
@@ -40,6 +41,7 @@
 
                 <h1>
                     Hello.
+
                     <span>
                         What's overwhelming you?
                     </span>
@@ -97,7 +99,10 @@
                                 type="button"
                             >
                                 Organize
-                                <span aria-hidden="true">→</span>
+
+                                <span aria-hidden="true">
+                                    →
+                                </span>
                             </button>
 
                         </div>
@@ -134,6 +139,7 @@
                                 03
                             </span>
 
+
                             <div>
 
                                 <strong id="todayMonth">
@@ -158,18 +164,31 @@
                         <div class="calendar-legend">
 
                             <span>
+
                                 <i class="legend clear"></i>
+
                                 Nothing due
+
                             </span>
 
+
                             <span>
+
                                 <i class="legend deadline"></i>
+
                                 Deadline
+
                             </span>
 
+
                             <span>
-                                <i class="legend urgent">!</i>
+
+                                <i class="legend urgent">
+                                    !
+                                </i>
+
                                 Needs attention
+
                             </span>
 
                         </div>
@@ -237,7 +256,10 @@
                         data-target="planScreen"
                     >
                         View my plan
-                        <span aria-hidden="true">→</span>
+
+                        <span aria-hidden="true">
+                            →
+                        </span>
                     </button>
 
                 </section>
@@ -430,6 +452,7 @@
                         !
                     </div>
 
+
                     <div>
 
                         <strong>
@@ -478,18 +501,31 @@
                         <div class="calendar-legend">
 
                             <span>
+
                                 <i class="legend clear"></i>
+
                                 Clear
+
                             </span>
 
+
                             <span>
+
                                 <i class="legend deadline"></i>
+
                                 Deadline
+
                             </span>
 
+
                             <span>
-                                <i class="legend urgent">!</i>
+
+                                <i class="legend urgent">
+                                    !
+                                </i>
+
                                 Urgent
+
                             </span>
 
                         </div>
@@ -543,7 +579,7 @@
                 </section>
 
 
-                <!-- TASKS -->
+                <!-- ACTIVE TASKS -->
 
                 <section>
 
@@ -576,10 +612,23 @@
                         data-target="focusScreen"
                     >
                         Start first task
-                        <span aria-hidden="true">→</span>
+
+                        <span aria-hidden="true">
+                            →
+                        </span>
                     </button>
 
                 </section>
+
+
+                <!--
+                    IMPORTANT:
+                    Phase 2 task management is created
+                    ONCE by script.js here.
+
+                    Nothing else is manually duplicated
+                    in this HTML.
+                -->
 
             </div>
 
@@ -823,7 +872,10 @@
                             type="button"
                         >
                             Finish this step
-                            <span aria-hidden="true">→</span>
+
+                            <span aria-hidden="true">
+                                →
+                            </span>
                         </button>
 
                     </section>
@@ -1107,7 +1159,9 @@
                                     style="--bar-height: 42%;"
                                 ></div>
 
-                                <span>M</span>
+                                <span>
+                                    M
+                                </span>
 
                             </div>
 
@@ -1119,7 +1173,9 @@
                                     style="--bar-height: 67%;"
                                 ></div>
 
-                                <span>T</span>
+                                <span>
+                                    T
+                                </span>
 
                             </div>
 
@@ -1131,7 +1187,9 @@
                                     style="--bar-height: 36%;"
                                 ></div>
 
-                                <span>W</span>
+                                <span>
+                                    W
+                                </span>
 
                             </div>
 
@@ -1143,7 +1201,9 @@
                                     style="--bar-height: 82%;"
                                 ></div>
 
-                                <span>T</span>
+                                <span>
+                                    T
+                                </span>
 
                             </div>
 
@@ -1155,7 +1215,9 @@
                                     style="--bar-height: 54%;"
                                 ></div>
 
-                                <span>F</span>
+                                <span>
+                                    F
+                                </span>
 
                             </div>
 
@@ -1167,7 +1229,9 @@
                                     style="--bar-height: 25%;"
                                 ></div>
 
-                                <span>S</span>
+                                <span>
+                                    S
+                                </span>
 
                             </div>
 
@@ -1179,7 +1243,9 @@
                                     style="--bar-height: 18%;"
                                 ></div>
 
-                                <span>S</span>
+                                <span>
+                                    S
+                                </span>
 
                             </div>
 
@@ -1506,4 +1572,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
