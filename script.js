@@ -1,18 +1,29 @@
-/* ==========================================
-   OVERWHELM V4
-   FULL FUNCTIONAL PROTOTYPE
-========================================== */
+/* =========================================================
+   OVERWHELM
+   COMPLETE WORKING PROTOTYPE
+
+   01 Home / Dump
+   02 Plan
+   03 Focus
+   04 Profile
+
+   Bottom nav:
+   Home · Plan · Quick Dump · Focus · More
+========================================================= */
 
 
-/* ==========================
-   APP STATE
-========================== */
+/* =========================================================
+   STATE
+========================================================= */
+
 
 const state = {
 
     tasks: [],
 
     activeTasks: [],
+
+    completedTasks: [],
 
     currentTask: null,
 
@@ -21,226 +32,214 @@ const state = {
 };
 
 
-/* ==========================
-   ELEMENTS
-========================== */
-
-const stressInput =
-    document.getElementById(
-        "stressInput"
-    );
-
-
-const organizeButton =
-    document.getElementById(
-        "organizeButton"
-    );
-
-
-const dumpMessage =
-    document.getElementById(
-        "dumpMessage"
-    );
-
-
-const resultsSection =
-    document.getElementById(
-        "resultsSection"
-    );
-
-
-const homeTasks =
-    document.getElementById(
-        "homeTasks"
-    );
-
-
-const planTasks =
-    document.getElementById(
-        "planTasks"
-    );
-
-
-const capacityLabel =
-    document.getElementById(
-        "capacityLabel"
-    );
-
-
-const capacityHeading =
-    document.getElementById(
-        "capacityHeading"
-    );
-
-
-const intervention =
-    document.getElementById(
-        "intervention"
-    );
-
-
-const interventionText =
-    document.getElementById(
-        "interventionText"
-    );
-
-
-const focusTaskTitle =
-    document.getElementById(
-        "focusTaskTitle"
-    );
-
-
-const focusDeadline =
-    document.getElementById(
-        "focusDeadline"
-    );
-
-
-const focusPercent =
-    document.getElementById(
-        "focusPercent"
-    );
-
-
-const focusProgressRing =
-    document.getElementById(
-        "focusProgressRing"
-    );
-
-
-const stepList =
-    document.getElementById(
-        "stepList"
-    );
-
-
-const finishStepButton =
-    document.getElementById(
-        "finishStepButton"
-    );
-
-
-const viewPlanButton =
-    document.getElementById(
-        "viewPlanButton"
-    );
+/* =========================================================
+   DOM
+========================================================= */
 
 
 const phone =
-    document.querySelector(
-        ".phone"
-    );
+    document.querySelector(".phone");
 
 
-/* ==========================
-   DATE SETUP
-========================== */
+const stressInput =
+    document.getElementById("stressInput");
 
-const today =
+
+const organizeButton =
+    document.getElementById("organizeButton");
+
+
+const dumpMessage =
+    document.getElementById("dumpMessage");
+
+
+const resultsSection =
+    document.getElementById("resultsSection");
+
+
+const homeTasks =
+    document.getElementById("homeTasks");
+
+
+const planTasks =
+    document.getElementById("planTasks");
+
+
+const capacityLabel =
+    document.getElementById("capacityLabel");
+
+
+const capacityHeading =
+    document.getElementById("capacityHeading");
+
+
+const intervention =
+    document.getElementById("intervention");
+
+
+const interventionText =
+    document.getElementById("interventionText");
+
+
+const planProgress =
+    document.getElementById("planProgress");
+
+
+const planProgressRing =
+    document.getElementById("planProgressRing");
+
+
+const focusActiveState =
+    document.getElementById("focusActiveState");
+
+
+const emptyFocus =
+    document.getElementById("emptyFocus");
+
+
+const focusTaskTitle =
+    document.getElementById("focusTaskTitle");
+
+
+const focusDeadline =
+    document.getElementById("focusDeadline");
+
+
+const focusPercent =
+    document.getElementById("focusPercent");
+
+
+const focusProgressRing =
+    document.getElementById("focusProgressRing");
+
+
+const stepList =
+    document.getElementById("stepList");
+
+
+const finishStepButton =
+    document.getElementById("finishStepButton");
+
+
+/* PROFILE */
+
+const profilePercent =
+    document.getElementById("profilePercent");
+
+
+const profileActive =
+    document.getElementById("profileActive");
+
+
+const profileWaiting =
+    document.getElementById("profileWaiting");
+
+
+const profileFinished =
+    document.getElementById("profileFinished");
+
+
+/* DATE */
+
+const todayNumber =
+    document.getElementById("todayNumber");
+
+
+const todayMonth =
+    document.getElementById("todayMonth");
+
+
+const todayWeekday =
+    document.getElementById("todayWeekday");
+
+
+const monthTitle =
+    document.getElementById("monthTitle");
+
+
+/* =========================================================
+   CURRENT DATE
+========================================================= */
+
+
+const now =
     new Date();
 
 
-const months = [
-
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-
-];
-
-
-const weekdays = [
-
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-
-];
-
-
-/* Update current date display */
-
-document.getElementById(
-    "todayNumber"
-).textContent =
-
+todayNumber.textContent =
     String(
-        today.getDate()
+        now.getDate()
     ).padStart(
         2,
         "0"
     );
 
 
-document.getElementById(
-    "todayMonth"
-).textContent =
-
-    months[
-        today.getMonth()
-    ];
-
-
-document.getElementById(
-    "todayWeekday"
-).textContent =
-
-    weekdays[
-        today.getDay()
-    ];
+todayMonth.textContent =
+    now
+        .toLocaleDateString(
+            "en-US",
+            {
+                month:
+                    "long"
+            }
+        )
+        .toUpperCase();
 
 
-document.getElementById(
-    "monthTitle"
-).textContent =
+todayWeekday.textContent =
+    now
+        .toLocaleDateString(
+            "en-US",
+            {
+                weekday:
+                    "long"
+            }
+        )
+        .toUpperCase();
 
-    months[
-        today.getMonth()
-    ];
+
+monthTitle.textContent =
+    now.toLocaleDateString(
+        "en-US",
+        {
+            month:
+                "long"
+        }
+    );
 
 
-
-/* ==========================
+/* =========================================================
    CALENDAR
-========================== */
+========================================================= */
 
-function drawCalendar(
-    elementID
-) {
 
-    const calendar =
+function drawCalendar(containerID) {
+
+    const container =
         document.getElementById(
-            elementID
+            containerID
         );
 
 
-    calendar.innerHTML =
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML =
         "";
 
 
     const year =
-        today.getFullYear();
+        now.getFullYear();
 
 
     const month =
-        today.getMonth();
+        now.getMonth();
 
 
-    const numberOfDays =
+    const daysInMonth =
         new Date(
             year,
             month + 1,
@@ -250,156 +249,93 @@ function drawCalendar(
 
     for (
         let day = 1;
-        day <= numberOfDays;
+        day <= daysInMonth;
         day++
     ) {
 
-        const button =
+        const dayButton =
             document.createElement(
                 "button"
             );
 
 
-        button.type =
+        dayButton.type =
             "button";
 
 
-        button.className =
+        dayButton.className =
             "calendar-day";
 
 
-        button.textContent =
+        dayButton.textContent =
             day;
 
 
-        /* Find tasks due on this day */
-
-        const matchingTasks =
-            state.tasks.filter(
-                task => {
-
-                    if (
-                        !task.deadline
-                    ) {
-
-                        return false;
-
-                    }
-
-
-                    return (
-
-                        task.deadline.getDate()
-                        === day
-
-                        &&
-
-                        task.deadline.getMonth()
-                        === month
-
-                        &&
-
-                        task.deadline.getFullYear()
-                        === year
-
-                    );
-
+        dayButton.setAttribute(
+            "aria-label",
+            `${now.toLocaleDateString(
+                "en-US",
+                {
+                    month:
+                        "long"
                 }
-            );
-
-
-        /* Apply deadline states */
-
-        if (
-            matchingTasks.length > 0
-        ) {
-
-            const urgent =
-                matchingTasks.some(
-                    task =>
-                        task.priorityLevel
-                        === "urgent"
-                );
-
-
-            button.classList.add(
-
-                urgent
-                    ? "urgent"
-                    : "deadline"
-
-            );
-
-
-            button.setAttribute(
-
-                "aria-label",
-
-                `${months[month]} ${day}. ` +
-                `${matchingTasks.length} deadline` +
-                `${matchingTasks.length > 1 ? "s" : ""}.`
-
-            );
-
-        }
-
-        else {
-
-            button.setAttribute(
-
-                "aria-label",
-
-                `${months[month]} ${day}. No known deadline.`
-
-            );
-
-        }
-
-
-        /* Highlight today */
-
-        if (
-            day === today.getDate()
-        ) {
-
-            button.classList.add(
-                "selected"
-            );
-
-        }
-
-
-        /* Allow selecting dates visually */
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                calendar
-                    .querySelectorAll(
-                        ".calendar-day"
-                    )
-                    .forEach(
-                        date => {
-
-                            date.classList.remove(
-                                "selected"
-                            );
-
-                        }
-                    );
-
-
-                button.classList.add(
-                    "selected"
-                );
-
-            }
+            )} ${day}`
         );
 
 
-        calendar.appendChild(
-            button
+        if (
+            day === now.getDate()
+        ) {
+
+            dayButton
+                .classList
+                .add(
+                    "selected"
+                );
+
+        }
+
+
+        const matchingTask =
+            state.tasks.find(
+                task =>
+                    task.deadline &&
+                    task.deadline.getFullYear() === year &&
+                    task.deadline.getMonth() === month &&
+                    task.deadline.getDate() === day
+            );
+
+
+        if (matchingTask) {
+
+            if (
+                matchingTask.priorityLevel ===
+                "urgent"
+            ) {
+
+                dayButton
+                    .classList
+                    .add(
+                        "urgent"
+                    );
+
+            }
+
+            else {
+
+                dayButton
+                    .classList
+                    .add(
+                        "deadline"
+                    );
+
+            }
+
+        }
+
+
+        container.appendChild(
+            dayButton
         );
 
     }
@@ -407,487 +343,322 @@ function drawCalendar(
 }
 
 
-/* Initial calendars */
-
-drawCalendar(
-    "homeCalendar"
-);
+/* =========================================================
+   TASK EXTRACTION
+========================================================= */
 
 
-drawCalendar(
-    "planCalendar"
-);
+function extractTasks(text) {
 
-
-
-/* ==========================
-   READ USER DUMP
-========================== */
-
-function extractTasks(
-    text
-) {
-
-    /*
-        This is a local prototype parser.
-
-        It does NOT use a real AI backend yet.
-
-        Its purpose is to simulate the
-        Overwhelm UX so the prototype
-        can actually respond to input.
-    */
-
-
-    const cleaned =
+    const normalized =
         text
-
             .replace(
                 /\n+/g,
                 ". "
             )
-
             .replace(
                 /\s+/g,
                 " "
             )
-
             .trim();
 
 
-    /*
-        Break paragraphs into
-        likely responsibilities.
-    */
+    if (!normalized) {
+        return [];
+    }
+
 
     let pieces =
-        cleaned.split(
-            /[.!?;]+/
-        );
-
-
-    pieces =
-        pieces
-
+        normalized
+            .split(
+                /[.!?;]+|\b(?:and also|also)\b/gi
+            )
             .map(
                 item =>
                     item.trim()
             )
-
-            .filter(
-                item =>
-                    item.length > 3
-            );
+            .filter(Boolean);
 
 
-    /*
-        Also split long run-on sentences
-        when the user says things like:
+    if (
+        pieces.length === 1
+    ) {
 
-        "and I need..."
-        "also I have..."
-    */
-
-    let expanded =
-        [];
-
-
-    pieces.forEach(
-        piece => {
-
-            const smaller =
-                piece.split(
-
-                    /\s+(?:and|also)\s+(?=I\s|my\s|the\s)/i
-
-                );
-
-
-            expanded.push(
-                ...smaller
-            );
-
-        }
-    );
-
-
-    return expanded
-
-        .map(
-            sentence =>
-                createTaskFromSentence(
-                    sentence
+        pieces =
+            normalized
+                .split(
+                    /\band\b/gi
                 )
-        )
+                .map(
+                    item =>
+                        item.trim()
+                )
+                .filter(Boolean);
 
-        .filter(
-            Boolean
-        );
+    }
 
-}
-
-
-
-/* ==========================
-   CREATE TASK OBJECT
-========================== */
-
-function createTaskFromSentence(
-    sentence
-) {
-
-    const lower =
-        sentence.toLowerCase();
-
-
-    /*
-        Words that suggest the sentence
-        contains an actual responsibility.
-    */
 
     const taskWords = [
 
+        "due",
         "need",
         "have to",
         "must",
         "finish",
         "complete",
         "submit",
-        "work on",
-        "study",
         "write",
-        "clean",
-        "application",
-        "assignment",
-        "project",
-        "homework",
-        "module",
         "essay",
         "paper",
-        "proposal",
-        "presentation",
-        "test",
+        "project",
         "quiz",
+        "test",
         "exam",
+        "application",
+        "clean",
+        "study",
+        "research",
+        "proposal",
+        "homework",
+        "assignment",
+        "work",
         "email",
         "call",
-        "practice",
-        "prepare",
-        "read",
-        "research"
+        "appointment"
 
     ];
 
 
-    const looksLikeTask =
-        taskWords.some(
-            word =>
-                lower.includes(
-                    word
+    let taskPieces =
+        pieces.filter(
+            sentence =>
+
+                taskWords.some(
+                    word =>
+                        sentence
+                            .toLowerCase()
+                            .includes(word)
                 )
         );
 
 
     if (
-        !looksLikeTask
+        taskPieces.length === 0
     ) {
 
-        return null;
+        taskPieces =
+            pieces.slice(
+                0,
+                8
+            );
 
     }
 
 
-    const deadline =
-        detectDeadline(
-            sentence
+    return taskPieces
+        .slice(
+            0,
+            12
+        )
+        .map(
+            createTaskFromSentence
         );
 
-
-    const timeline =
-        detectTimeline(
-            sentence
-        );
+}
 
 
-    const minutes =
-        detectDuration(
-            sentence
-        );
+/* =========================================================
+   CREATE TASK
+========================================================= */
 
 
-    const title =
-        cleanTaskTitle(
-            sentence
-        );
+function createTaskFromSentence(sentence) {
 
-
-    return {
+    const task = {
 
         id:
             createID(),
 
-        title,
-
         original:
             sentence,
 
-        deadline,
-
-        timeline,
+        title:
+            cleanTaskTitle(
+                sentence
+            ),
 
         estimatedMinutes:
-            minutes,
+            detectDuration(
+                sentence
+            ),
 
-        completed:
-            false,
+        deadline:
+            detectDeadline(
+                sentence
+            ),
 
-        progress:
+        timeline:
+            detectTimeline(
+                sentence
+            ),
+
+        priorityScore:
             0,
 
         priorityLevel:
             "later",
 
-        priorityScore:
+        completedSteps:
             0,
 
         steps:
-            generateSteps(
-                title
-            )
+            []
 
     };
+
+
+    const priority =
+        calculatePriority(
+            task
+        );
+
+
+    task.priorityScore =
+        priority.score;
+
+
+    task.priorityLevel =
+        priority.level;
+
+
+    return task;
 
 }
 
 
+/* =========================================================
+   ID
+========================================================= */
 
-/* ==========================
-   CREATE UNIQUE ID
-========================== */
 
 function createID() {
 
-    if (
-        typeof crypto !== "undefined"
-        &&
-        typeof crypto.randomUUID === "function"
-    ) {
-
-        return crypto.randomUUID();
-
-    }
-
-
     return (
-
-        Date.now().toString()
-        +
-        "-"
-        +
+        Date.now()
+            .toString(36) +
         Math.random()
-            .toString(16)
+            .toString(36)
             .slice(2)
-
     );
 
 }
 
 
-
-/* ==========================
-   CLEAN TASK TITLE
-========================== */
-
-function cleanTaskTitle(
-    sentence
-) {
-
-    let result =
-        sentence.trim();
+/* =========================================================
+   CLEAN TITLE
+========================================================= */
 
 
-    result =
-        result.replace(
+function cleanTaskTitle(sentence) {
 
-            /^(i\s+(need|have|have to|must|should)\s+(to\s+)?)/i,
-
-            ""
-
-        );
-
-
-    result =
-        result.replace(
-
-            /^(my\s+)/i,
-
-            ""
-
-        );
+    let title =
+        sentence
+            .replace(
+                /^(i\s+)?(need to|have to|must|should|gotta)\s+/i,
+                ""
+            )
+            .trim();
 
 
-    /*
-        Remove obvious deadline language
-        from title.
-    */
+    if (!title) {
 
-    result =
-        result.replace(
-
-            /\b(due|by|before)\b.+$/i,
-
-            ""
-
-        );
-
-
-    /*
-        Remove timeline wording.
-    */
-
-    result =
-        result.replace(
-
-            /\b(today|tomorrow|this week|next week|soon|eventually)\b.*$/i,
-
-            ""
-
-        );
-
-
-    /*
-        Remove duration wording.
-    */
-
-    result =
-        result.replace(
-
-            /\b(and\s+)?(it\s+)?(takes?|needs?)\s+(about\s+)?\d+.+$/i,
-
-            ""
-
-        );
-
-
-    result =
-        result.trim();
-
-
-    if (
-        !result
-    ) {
-
-        result =
+        title =
             sentence.trim();
 
     }
 
 
-    /*
-        Capitalize title.
-    */
-
     return (
-
-        result.charAt(0)
-            .toUpperCase()
-
-        +
-
-        result.slice(1)
-
+        title
+            .charAt(0)
+            .toUpperCase() +
+        title.slice(1)
     );
 
 }
 
 
+/* =========================================================
+   DURATION
+========================================================= */
 
-/* ==========================
-   DETECT DURATION
-========================== */
 
-function detectDuration(
-    sentence
-) {
+function detectDuration(text) {
 
-    /*
-        Hours
-    */
+    const lower =
+        text.toLowerCase();
+
 
     const hourMatch =
-        sentence.match(
-
-            /(\d+(?:\.\d+)?)\s*(hours?|hrs?|hr)\b/i
-
+        lower.match(
+            /(\d+(?:\.\d+)?)\s*(?:hour|hours|hr|hrs)\b/
         );
 
 
-    if (
-        hourMatch
-    ) {
+    if (hourMatch) {
 
-        return Math.round(
-
-            parseFloat(
-                hourMatch[1]
+        return Math.max(
+            5,
+            Math.round(
+                Number(
+                    hourMatch[1]
+                ) * 60
             )
-            * 60
-
         );
 
     }
 
-
-    /*
-        Minutes
-    */
 
     const minuteMatch =
-        sentence.match(
-
-            /(\d+)\s*(minutes?|mins?|min)\b/i
-
+        lower.match(
+            /(\d+)\s*(?:minute|minutes|min|mins)\b/
         );
 
 
-    if (
-        minuteMatch
-    ) {
+    if (minuteMatch) {
 
-        return parseInt(
-            minuteMatch[1],
-            10
+        return Math.max(
+            5,
+            Number(
+                minuteMatch[1]
+            )
         );
 
     }
 
-
-    /*
-        Prototype default if no duration
-        was provided.
-    */
 
     return 60;
 
 }
 
 
+/* =========================================================
+   TIMELINE
+========================================================= */
 
-/* ==========================
-   DETECT TIMELINE
-========================== */
 
-function detectTimeline(
-    sentence
-) {
+function detectTimeline(text) {
 
     const lower =
-        sentence.toLowerCase();
+        text.toLowerCase();
 
 
     if (
         lower.includes(
             "today"
+        ) ||
+        lower.includes(
+            "tonight"
         )
     ) {
 
@@ -909,22 +680,43 @@ function detectTimeline(
 
     if (
         lower.includes(
-            "this week"
+            "next week"
         )
     ) {
 
-        return "This week";
+        return "Next week";
 
     }
 
 
     if (
         lower.includes(
-            "next week"
+            "this week"
+        ) ||
+        lower.includes(
+            "monday"
+        ) ||
+        lower.includes(
+            "tuesday"
+        ) ||
+        lower.includes(
+            "wednesday"
+        ) ||
+        lower.includes(
+            "thursday"
+        ) ||
+        lower.includes(
+            "friday"
+        ) ||
+        lower.includes(
+            "saturday"
+        ) ||
+        lower.includes(
+            "sunday"
         )
     ) {
 
-        return "Next week";
+        return "This week";
 
     }
 
@@ -940,248 +732,222 @@ function detectTimeline(
     }
 
 
+    return "Eventually";
+
+}
+
+
+/* =========================================================
+   DEADLINE
+========================================================= */
+
+
+function detectDeadline(text) {
+
+    const lower =
+        text.toLowerCase();
+
+
+    const current =
+        new Date();
+
+
     if (
         lower.includes(
-            "eventually"
+            "today"
+        ) ||
+        lower.includes(
+            "tonight"
         )
     ) {
 
-        return "Eventually";
-
-    }
-
-
-    return null;
-
-}
-
-
-
-/* ==========================
-   DETECT DEADLINE
-========================== */
-
-function detectDeadline(
-    sentence
-) {
-
-    /*
-        TODAY
-    */
-
-    if (
-        /\btoday\b/i.test(
-            sentence
-        )
-    ) {
-
-        return endOfDay(
-            new Date()
-        );
-
-    }
-
-
-    /*
-        TOMORROW
-    */
-
-    if (
-        /\btomorrow\b/i.test(
-            sentence
-        )
-    ) {
-
-        const tomorrow =
-            new Date();
-
-
-        tomorrow.setDate(
-
-            tomorrow.getDate()
-            + 1
-
-        );
-
-
-        return endOfDay(
-            tomorrow
-        );
-
-    }
-
-
-    /*
-        MONTH + DAY
-
-        Examples:
-
-        September 6
-        Sep 6
-        September 6 at 11:59 PM
-        Sep 6 at 3 PM
-    */
-
-    const monthPattern =
-
-        /(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s+at\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?)?/i;
-
-
-    const match =
-        sentence.match(
-            monthPattern
-        );
-
-
-    if (
-        match
-    ) {
-
-        const monthLookup = {
-
-            jan: 0,
-            january: 0,
-
-            feb: 1,
-            february: 1,
-
-            mar: 2,
-            march: 2,
-
-            apr: 3,
-            april: 3,
-
-            may: 4,
-
-            jun: 5,
-            june: 5,
-
-            jul: 6,
-            july: 6,
-
-            aug: 7,
-            august: 7,
-
-            sep: 8,
-            sept: 8,
-            september: 8,
-
-            oct: 9,
-            october: 9,
-
-            nov: 10,
-            november: 10,
-
-            dec: 11,
-            december: 11
-
-        };
-
-
-        const monthIndex =
-            monthLookup[
-                match[1]
-                    .toLowerCase()
-            ];
-
-
-        const day =
-            Number(
-                match[2]
-            );
-
-
-        let hour =
-            match[3]
-                ? Number(
-                    match[3]
-                )
-                : 23;
-
-
-        const minute =
-            match[4]
-                ? Number(
-                    match[4]
-                )
-                : 59;
-
-
-        const ampm =
-            match[5]
-                ? match[5]
-                    .toLowerCase()
-                : null;
-
-
-        /*
-            Convert 12-hour clock
-            to 24-hour clock.
-        */
-
-        if (
-            ampm === "pm"
-            &&
-            hour !== 12
-        ) {
-
-            hour += 12;
-
-        }
-
-
-        if (
-            ampm === "am"
-            &&
-            hour === 12
-        ) {
-
-            hour = 0;
-
-        }
-
-
-        const year =
-            today.getFullYear();
-
-
-        const deadline =
+        const date =
             new Date(
-
-                year,
-
-                monthIndex,
-
-                day,
-
-                hour,
-
-                minute
-
+                current
             );
 
 
-        /*
-            If user mentions a month
-            that has already passed,
-            assume next year.
-        */
+        date.setHours(
+            23,
+            59,
+            0,
+            0
+        );
+
+
+        return date;
+
+    }
+
+
+    if (
+        lower.includes(
+            "tomorrow"
+        )
+    ) {
+
+        const date =
+            new Date(
+                current
+            );
+
+
+        date.setDate(
+            date.getDate() + 1
+        );
+
+
+        date.setHours(
+            23,
+            59,
+            0,
+            0
+        );
+
+
+        return date;
+
+    }
+
+
+    const weekdays = [
+
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday"
+
+    ];
+
+
+    for (
+        let index = 0;
+        index < weekdays.length;
+        index++
+    ) {
 
         if (
-            deadline < today
-            &&
-            monthIndex
-            < today.getMonth()
+            lower.includes(
+                weekdays[index]
+            )
         ) {
 
-            deadline.setFullYear(
-                year + 1
+            const date =
+                new Date(
+                    current
+                );
+
+
+            let difference =
+                index -
+                current.getDay();
+
+
+            if (
+                difference <= 0
+            ) {
+
+                difference += 7;
+
+            }
+
+
+            date.setDate(
+                current.getDate() +
+                difference
             );
+
+
+            date.setHours(
+                23,
+                59,
+                0,
+                0
+            );
+
+
+            return date;
 
         }
 
+    }
 
-        return deadline;
+
+    const months = {
+
+        january: 0,
+        february: 1,
+        march: 2,
+        april: 3,
+        may: 4,
+        june: 5,
+        july: 6,
+        august: 7,
+        september: 8,
+        october: 9,
+        november: 10,
+        december: 11
+
+    };
+
+
+    for (
+        const [
+            monthName,
+            monthIndex
+        ]
+        of Object.entries(
+            months
+        )
+    ) {
+
+        const regex =
+            new RegExp(
+                `${monthName}\\s+(\\d{1,2})`,
+                "i"
+            );
+
+
+        const match =
+            text.match(
+                regex
+            );
+
+
+        if (match) {
+
+            const date =
+                new Date(
+                    current.getFullYear(),
+                    monthIndex,
+                    Number(
+                        match[1]
+                    ),
+                    23,
+                    59,
+                    0,
+                    0
+                );
+
+
+            if (
+                date < current
+            ) {
+
+                date.setFullYear(
+                    current.getFullYear() +
+                    1
+                );
+
+            }
+
+
+            return date;
+
+        }
 
     }
 
@@ -1191,334 +957,201 @@ function detectDeadline(
 }
 
 
-
-/* ==========================
-   END OF DAY
-========================== */
-
-function endOfDay(
-    date
-) {
-
-    const result =
-        new Date(
-            date
-        );
+/* =========================================================
+   PRIORITY
+========================================================= */
 
 
-    result.setHours(
-
-        23,
-        59,
-        0,
-        0
-
-    );
-
-
-    return result;
-
-}
-
-
-
-/* ==========================
-   PRIORITY CALCULATION
-========================== */
-
-function calculatePriority(
-    task
-) {
+function calculatePriority(task) {
 
     let score =
         0;
 
 
-    /*
-        Exact deadline exists.
-    */
+    let level =
+        "later";
+
 
     if (
         task.deadline
     ) {
 
         const remainingMinutes =
-
             (
-                task.deadline
-                -
-                new Date()
-            )
+                task.deadline.getTime() -
+                Date.now()
+            ) / 60000;
 
-            /
-
-            60000;
-
-
-        /*
-            How much time remains after
-            accounting for required work?
-        */
 
         const slack =
-
-            remainingMinutes
-            -
+            remainingMinutes -
             task.estimatedMinutes;
 
-
-        /*
-            Deadline is already impossible
-            or dangerously tight.
-        */
 
         if (
             slack <= 0
         ) {
 
-            score +=
-                1000;
+            score += 1000;
 
-
-            task.priorityLevel =
+            level =
                 "urgent";
 
         }
 
-
-        /*
-            Due within 24 hours.
-        */
-
         else if (
-            remainingMinutes
-            <= 1440
+            remainingMinutes <=
+            24 * 60
         ) {
 
-            score +=
-                800;
+            score += 800;
 
-
-            task.priorityLevel =
+            level =
                 "urgent";
 
         }
 
-
-        /*
-            Due within 3 days.
-        */
-
         else if (
-            remainingMinutes
-            <= 4320
+            remainingMinutes <=
+            3 * 24 * 60
         ) {
 
-            score +=
-                600;
+            score += 600;
 
-
-            task.priorityLevel =
-                "urgent";
-
-        }
-
-
-        /*
-            Due within a week.
-        */
-
-        else if (
-            remainingMinutes
-            <= 10080
-        ) {
-
-            score +=
-                400;
-
-
-            task.priorityLevel =
+            level =
                 "soon";
 
         }
 
+        else if (
+            remainingMinutes <=
+            7 * 24 * 60
+        ) {
 
-        /*
-            Exact deadline but farther away.
-        */
+            score += 400;
+
+            level =
+                "soon";
+
+        }
 
         else {
 
-            score +=
-                200;
-
-
-            task.priorityLevel =
-                "later";
+            score += 250;
 
         }
 
 
-        /*
-            Lower slack = more urgent.
-
-            This is important because
-            a 10-hour task due in two days
-            should outrank a 15-minute task
-            due in two days.
-        */
-
         score +=
             Math.max(
-
                 0,
-
-                300
-                -
-                (
-                    slack
-                    / 60
-                )
-
+                200 -
+                remainingMinutes / 60
             );
 
     }
 
-
-    /*
-        No exact deadline:
-        use broad timeline.
-    */
-
     else {
 
-        const timelineScore = {
+        const timelineScores = {
 
-            "Today":
-                350,
+            Today:
+                500,
 
-            "Tomorrow":
-                300,
+            Tomorrow:
+                430,
 
             "This week":
-                230,
+                330,
 
             "Next week":
-                170,
+                200,
 
-            "Soon":
-                140,
+            Soon:
+                180,
 
-            "Eventually":
-                30
+            Eventually:
+                80
 
         };
 
 
         score +=
-
-            timelineScore[
+            timelineScores[
                 task.timeline
-            ]
-
-            ||
-
-            60;
+            ] || 50;
 
 
         if (
-            task.timeline
-            === "Today"
-            ||
-            task.timeline
-            === "Tomorrow"
+            task.timeline ===
+            "Today"
         ) {
 
-            task.priorityLevel =
+            level =
                 "urgent";
 
         }
 
         else if (
-            task.timeline
-            === "This week"
-
-            ||
-
-            task.timeline
-            === "Next week"
-
-            ||
-
-            task.timeline
-            === "Soon"
+            task.timeline ===
+            "Tomorrow" ||
+            task.timeline ===
+            "This week"
         ) {
 
-            task.priorityLevel =
+            level =
                 "soon";
-
-        }
-
-        else {
-
-            task.priorityLevel =
-                "later";
 
         }
 
     }
 
 
-    /*
-        YOUR tie-break rule:
-
-        When tasks are otherwise similar,
-        the shorter task goes first.
-
-        This reduces the pile faster.
-    */
+    /* Same priority?
+       Shorter task goes first. */
 
     score +=
         Math.max(
-
             0,
-
-            100
-            -
+            100 -
             task.estimatedMinutes
-
         );
 
 
-    task.priorityScore =
-        score;
+    return {
 
+        score,
+        level
 
-    return score;
+    };
 
 }
 
 
+/* =========================================================
+   ORGANIZE DUMP
+========================================================= */
 
-/* ==========================
-   ORGANIZE USER DUMP
-========================== */
 
 function organizeDump() {
 
     const text =
-        stressInput.value.trim();
+        stressInput
+            .value
+            .trim();
 
 
-    if (
-        !text
-    ) {
+    if (!text) {
 
         dumpMessage.textContent =
-            "Tell me what's crowding your head first.";
+            "Tell me what's overwhelming you first.";
 
 
-        stressInput.focus();
+        dumpMessage
+            .classList
+            .remove(
+                "hidden"
+            );
 
 
         return;
@@ -1537,7 +1170,14 @@ function organizeDump() {
     ) {
 
         dumpMessage.textContent =
-            "I couldn't find a clear responsibility yet. Try mentioning what needs to get done.";
+            "I couldn't find a task yet. Try mentioning what needs to get done.";
+
+
+        dumpMessage
+            .classList
+            .remove(
+                "hidden"
+            );
 
 
         return;
@@ -1545,47 +1185,26 @@ function organizeDump() {
     }
 
 
-    /*
-        Calculate priority for every task.
-    */
+    dumpMessage
+        .classList
+        .add(
+            "hidden"
+        );
 
-    tasks.forEach(
-        calculatePriority
-    );
-
-
-    /*
-        Highest priority first.
-    */
 
     tasks.sort(
-
         (
-            first,
-            second
+            a,
+            b
         ) =>
-
-            second.priorityScore
-            -
-            first.priorityScore
-
+            b.priorityScore -
+            a.priorityScore
     );
 
-
-    /*
-        Save all tasks.
-    */
 
     state.tasks =
         tasks;
 
-
-    /*
-        HARD CAPACITY LIMIT:
-
-        Only 3 responsibilities
-        are allowed into active view.
-    */
 
     state.activeTasks =
         tasks.slice(
@@ -1594,40 +1213,36 @@ function organizeDump() {
         );
 
 
-    /*
-        First active task becomes
-        the focus task.
-    */
+    state.completedTasks =
+        [];
+
 
     state.currentTask =
-        state.activeTasks[0]
-        || null;
+        state.activeTasks[0] ||
+        null;
 
 
     state.currentStep =
         0;
 
 
-    /*
-        Feedback to user.
-    */
+    state.tasks.forEach(
+        task => {
 
-    dumpMessage.textContent =
+            if (
+                task.steps.length === 0
+            ) {
 
-        `I found ${tasks.length} `
+                task.steps =
+                    generateSteps(
+                        task
+                    );
 
-        +
+            }
 
-        `responsibilit${tasks.length === 1 ? "y" : "ies"}. `
+        }
+    );
 
-        +
-
-        `I'm only showing what needs your attention.`;
-
-
-    /*
-        Reveal organized results.
-    */
 
     resultsSection
         .classList
@@ -1639,13 +1254,8 @@ function organizeDump() {
     renderEverything();
 
 
-    /*
-        Move user's attention to
-        the reduced workload.
-    */
-
-    resultsSection
-        .scrollIntoView({
+    resultsSection.scrollIntoView(
+        {
 
             behavior:
                 "smooth",
@@ -1653,20 +1263,20 @@ function organizeDump() {
             block:
                 "start"
 
-        });
+        }
+    );
 
 }
 
 
-
-/* ==========================
+/* =========================================================
    TASK CARD
-========================== */
+========================================================= */
+
 
 function createTaskCard(
     task,
-    index,
-    clickable = true
+    index
 ) {
 
     const card =
@@ -1683,32 +1293,31 @@ function createTaskCard(
         "task-card";
 
 
-    /*
-        First priority gets stronger
-        visual treatment.
-    */
-
     if (
         index === 0
     ) {
 
-        card.classList.add(
-            "first"
-        );
+        card
+            .classList
+            .add(
+                "first"
+            );
 
     }
 
 
-    const deadlineText =
-        getTaskDeadlineText(
-            task
-        );
+    const statusText =
+        task.priorityLevel ===
+        "urgent"
 
+            ? "Urgent"
 
-    const durationText =
-        formatDuration(
-            task.estimatedMinutes
-        );
+            : task.priorityLevel ===
+              "soon"
+
+                ? "Soon"
+
+                : "Later";
 
 
     card.innerHTML = `
@@ -1724,20 +1333,20 @@ function createTaskCard(
             </strong>
 
             <p>
-                ${escapeHTML(deadlineText)}
+                ${escapeHTML(
+                    getTaskDeadlineText(
+                        task
+                    )
+                )}
             </p>
 
             <small>
-
                 About
-                ${escapeHTML(durationText)}
-
-                ${
-                    index === 0
-                        ? " · Do this first"
-                        : ""
-                }
-
+                ${escapeHTML(
+                    formatDuration(
+                        task.estimatedMinutes
+                    )
+                )}
             </small>
 
         </span>
@@ -1748,83 +1357,42 @@ function createTaskCard(
                 ${task.priorityLevel}
             "
         >
-
-            ${
-                task.priorityLevel
-                === "urgent"
-
-                ? "! Urgent"
-
-                :
-
-                task.priorityLevel
-                === "soon"
-
-                ? "Soon"
-
-                :
-
-                "Later"
-            }
-
+            ${statusText}
         </span>
 
     `;
 
 
-    /*
-        Clicking a task opens Focus.
-    */
+    card.addEventListener(
+        "click",
+        () => {
 
-    if (
-        clickable
-    ) {
+            if (
+                index !== 0
+            ) {
 
-        card.addEventListener(
-            "click",
-            () => {
-
-                state.currentTask =
-                    task;
-
-
-                /*
-                    Determine which step
-                    matches current progress.
-                */
-
-                state.currentStep =
-                    Math.min(
-
-                        task.steps.length,
-
-                        Math.floor(
-
-                            (
-                                task.progress
-                                / 100
-                            )
-
-                            *
-
-                            task.steps.length
-
-                        )
-
-                    );
-
-
-                renderFocus();
-
-
-                showScreen(
-                    "focusScreen"
-                );
+                return;
 
             }
-        );
 
-    }
+
+            state.currentTask =
+                task;
+
+
+            state.currentStep =
+                task.completedSteps;
+
+
+            renderFocus();
+
+
+            showScreen(
+                "focusScreen"
+            );
+
+        }
+    );
 
 
     return card;
@@ -1832,10 +1400,10 @@ function createTaskCard(
 }
 
 
+/* =========================================================
+   RENDER TASKS
+========================================================= */
 
-/* ==========================
-   RENDER TASK LISTS
-========================== */
 
 function renderTaskLists() {
 
@@ -1848,33 +1416,27 @@ function renderTaskLists() {
 
 
     state.activeTasks.forEach(
-
         (
             task,
             index
         ) => {
 
             homeTasks.appendChild(
-
                 createTaskCard(
                     task,
                     index
                 )
-
             );
 
 
             planTasks.appendChild(
-
                 createTaskCard(
                     task,
                     index
                 )
-
             );
 
         }
-
     );
 
 
@@ -1883,57 +1445,30 @@ function renderTaskLists() {
 
 
     capacityHeading.textContent =
-        `${state.activeTasks.length} of 3 tasks`;
+        state.activeTasks.length > 0
+
+            ? "Here's what matters."
+
+            : "Nothing needs your attention.";
 
 }
 
 
+/* =========================================================
+   INTERVENTION
+========================================================= */
 
-/* ==========================
-   DEADLINE INTERVENTION
-========================== */
 
 function renderIntervention() {
 
-    const first =
+    const firstTask =
         state.activeTasks[0];
 
 
-    /*
-        Nothing active.
-    */
-
     if (
-        !first
-    ) {
-
-        intervention
-            .classList
-            .add(
-                "hidden"
-            );
-
-
-        phone
-            .classList
-            .remove(
-                "deadline-mode"
-            );
-
-
-        return;
-
-    }
-
-
-    /*
-        Deadline intervention begins
-        when first priority is urgent.
-    */
-
-    if (
-        first.priorityLevel
-        === "urgent"
+        firstTask &&
+        firstTask.priorityLevel ===
+        "urgent"
     ) {
 
         intervention
@@ -1943,10 +1478,9 @@ function renderIntervention() {
             );
 
 
-        /*
-            Change the visual atmosphere
-            of the whole app.
-        */
+        interventionText.textContent =
+            `${firstTask.title} needs your attention. I've moved it to the front.`;
+
 
         phone
             .classList
@@ -1954,22 +1488,7 @@ function renderIntervention() {
                 "deadline-mode"
             );
 
-
-        interventionText
-            .textContent =
-
-            `${first.title} needs attention first. `
-
-            +
-
-            `I rearranged your active workload.`;
-
     }
-
-
-    /*
-        Calm state.
-    */
 
     else {
 
@@ -1991,106 +1510,49 @@ function renderIntervention() {
 }
 
 
-
-/* ==========================
+/* =========================================================
    PLAN PROGRESS
-========================== */
+========================================================= */
+
 
 function renderPlanProgress() {
 
-    /*
-        No active tasks.
-    */
-
-    if (
-        state.activeTasks.length
-        === 0
-    ) {
-
-        document.getElementById(
-            "planPercent"
-        ).textContent =
-            "0%";
+    const total =
+        state.tasks.length;
 
 
-        document.getElementById(
-            "planProgress"
-        ).style.setProperty(
-            "--percent",
-            0
-        );
-
-
-        capacityHeading.textContent =
-            "0 of 3 tasks";
-
-
-        return;
-
-    }
-
-
-    /*
-        Average progress across
-        CURRENT active workload only.
-
-        Not the giant backlog.
-    */
-
-    const totalProgress =
-
-        state.activeTasks.reduce(
-
-            (
-                total,
-                task
-            ) =>
-
-                total
-                +
-                task.progress,
-
-            0
-
-        );
+    const finished =
+        state.completedTasks.length;
 
 
     const percent =
-        Math.round(
+        total > 0
 
-            totalProgress
+            ? Math.round(
+                finished /
+                total *
+                100
+            )
 
-            /
-
-            state.activeTasks.length
-
-        );
+            : 0;
 
 
-    document.getElementById(
-        "planPercent"
-    ).textContent =
-
+    planProgress.textContent =
         `${percent}%`;
 
 
-    document.getElementById(
-        "planProgress"
-    ).style.setProperty(
-
+    planProgressRing.style.setProperty(
         "--percent",
-
         percent
-
     );
 
 }
 
 
+/* =========================================================
+   FOCUS
+========================================================= */
 
-/* ==========================
-   FOCUS SCREEN
-========================== */
 
 function renderFocus() {
 
@@ -2098,34 +1560,16 @@ function renderFocus() {
         state.currentTask;
 
 
-    const workspace =
-        document.getElementById(
-            "focusWorkspace"
-        );
+    if (!task) {
 
-
-    const empty =
-        document.getElementById(
-            "emptyFocus"
-        );
-
-
-    /*
-        No work means quiet end state.
-    */
-
-    if (
-        !task
-    ) {
-
-        workspace
+        focusActiveState
             .classList
             .add(
                 "hidden"
             );
 
 
-        empty
+        emptyFocus
             .classList
             .remove(
                 "hidden"
@@ -2137,23 +1581,19 @@ function renderFocus() {
     }
 
 
-    workspace
+    focusActiveState
         .classList
         .remove(
             "hidden"
         );
 
 
-    empty
+    emptyFocus
         .classList
         .add(
             "hidden"
         );
 
-
-    /*
-        Current task.
-    */
 
     focusTaskTitle.textContent =
         task.title;
@@ -2165,573 +1605,477 @@ function renderFocus() {
         );
 
 
-    /*
-        Task completion.
-    */
+    const progress =
+        task.steps.length > 0
+
+            ? Math.round(
+                task.completedSteps /
+                task.steps.length *
+                100
+            )
+
+            : 0;
+
 
     focusPercent.textContent =
-        `${task.progress}%`;
+        `${progress}%`;
 
 
-    focusProgressRing
-        .style
-        .setProperty(
-
-            "--percent",
-
-            task.progress
-
-        );
-
-
-    renderSteps(
-        task
+    focusProgressRing.style.setProperty(
+        "--percent",
+        progress
     );
+
+
+    renderSteps();
 
 }
 
 
-
-/* ==========================
-   STEP GENERATION
-========================== */
-
-function generateSteps(
-    title
-) {
-
-    const lower =
-        title.toLowerCase();
+/* =========================================================
+   STEPS
+========================================================= */
 
 
-    /*
-        Writing / school project
-    */
+function generateSteps(task) {
+
+    const title =
+        task.title.toLowerCase();
+
 
     if (
-        lower.includes(
+        title.includes(
             "essay"
-        )
-
-        ||
-
-        lower.includes(
+        ) ||
+        title.includes(
             "paper"
-        )
-
-        ||
-
-        lower.includes(
+        ) ||
+        title.includes(
             "proposal"
-        )
-
-        ||
-
-        lower.includes(
+        ) ||
+        title.includes(
             "research"
         )
     ) {
 
         return [
 
-            "Understand the requirements",
+            "Open the assignment and requirements.",
 
-            "Gather what you need",
+            "Gather the information you need.",
 
-            "Create the first draft",
+            "Make a simple outline.",
 
-            "Review and finish"
+            "Write the first section.",
+
+            "Finish the draft.",
+
+            "Review and submit."
 
         ];
 
     }
 
 
-    /*
-        Applications
-    */
-
     if (
-        lower.includes(
+        title.includes(
             "application"
         )
     ) {
 
         return [
 
-            "Open the application",
+            "Open the application.",
 
-            "Gather required information",
+            "Check what information is required.",
 
-            "Complete the main sections",
+            "Complete the easiest sections first.",
 
-            "Review before submitting"
+            "Finish the remaining questions.",
+
+            "Review everything.",
+
+            "Submit."
 
         ];
 
     }
 
 
-    /*
-        Cleaning
-    */
-
     if (
-        lower.includes(
+        title.includes(
             "clean"
-        )
-
-        ||
-
-        lower.includes(
+        ) ||
+        title.includes(
             "room"
         )
     ) {
 
         return [
 
-            "Clear obvious trash",
+            "Pick up obvious trash.",
 
-            "Put loose items together",
+            "Put clothes together.",
 
-            "Return items to their places",
+            "Clear one surface.",
 
-            "Finish the remaining area"
+            "Put misplaced items away.",
+
+            "Finish the floor.",
+
+            "Stop when the room is functional."
 
         ];
 
     }
 
 
-    /*
-        Studying
-    */
-
     if (
-        lower.includes(
+        title.includes(
             "study"
-        )
-
-        ||
-
-        lower.includes(
+        ) ||
+        title.includes(
             "test"
-        )
-
-        ||
-
-        lower.includes(
+        ) ||
+        title.includes(
             "quiz"
-        )
-
-        ||
-
-        lower.includes(
+        ) ||
+        title.includes(
             "exam"
         )
     ) {
 
         return [
 
-            "Gather study materials",
+            "Find what will be tested.",
 
-            "Review the main topics",
+            "Identify the weakest topic.",
 
-            "Practice what is difficult",
+            "Review that topic first.",
 
-            "Do a final review"
+            "Practice a few questions.",
+
+            "Check what you missed.",
+
+            "Do one final review."
 
         ];
 
     }
 
 
-    /*
-        Generic task
-    */
-
     return [
 
-        "Open what you need",
+        "Open what you need.",
 
-        "Start the first part",
+        "Start the smallest useful part.",
 
-        "Finish the main work",
+        "Keep going until that part is done.",
 
-        "Check and complete"
+        "Check what remains.",
+
+        "Finish the task.",
+
+        "Mark it complete."
 
     ];
 
 }
 
 
-
-/* ==========================
+/* =========================================================
    RENDER STEPS
-========================== */
+========================================================= */
 
-function renderSteps(
-    task
-) {
+
+function renderSteps() {
 
     stepList.innerHTML =
         "";
 
 
-    task.steps.forEach(
+    const task =
+        state.currentTask;
 
+
+    if (!task) {
+        return;
+    }
+
+
+    task.steps.forEach(
         (
-            text,
+            stepText,
             index
         ) => {
 
-            const step =
+            const row =
                 document.createElement(
                     "div"
                 );
 
 
-            step.className =
+            row.className =
                 "step";
 
 
-            /*
-                Completed steps.
-            */
-
             if (
-                index
-                <
-                state.currentStep
+                index <
+                task.completedSteps
             ) {
 
-                step.classList.add(
-                    "completed"
-                );
+                row
+                    .classList
+                    .add(
+                        "completed"
+                    );
 
             }
 
 
-            /*
-                Current step.
-            */
-
             if (
-                index
-                ===
-                state.currentStep
+                index ===
+                task.completedSteps
             ) {
 
-                step.classList.add(
-                    "current"
-                );
+                row
+                    .classList
+                    .add(
+                        "current"
+                    );
 
             }
 
 
-            step.innerHTML = `
+            row.innerHTML = `
 
                 <span class="step-number">
-
-                    ${
-                        index
-                        <
-                        state.currentStep
-
-                        ? "✓"
-
-                        :
-
-                        index + 1
-                    }
-
+                    ${index + 1}
                 </span>
 
-                ${escapeHTML(text)}
+                <span>
+                    ${escapeHTML(
+                        stepText
+                    )}
+                </span>
 
             `;
 
 
             stepList.appendChild(
-                step
+                row
             );
 
         }
-
     );
 
 }
 
 
+/* =========================================================
+   FINISH STEP
+========================================================= */
 
-/* ==========================
-   FINISH CURRENT STEP
-========================== */
 
-finishStepButton
-    .addEventListener(
-        "click",
-        () => {
+finishStepButton.addEventListener(
+    "click",
+    () => {
 
-            const task =
-                state.currentTask;
+        const task =
+            state.currentTask;
 
 
-            if (
-                !task
-            ) {
+        if (!task) {
+            return;
+        }
 
-                return;
 
-            }
+        if (
+            task.completedSteps <
+            task.steps.length
+        ) {
 
+            task.completedSteps +=
+                1;
 
-            /*
-                Advance one step.
-            */
+        }
 
-            if (
-                state.currentStep
-                <
-                task.steps.length
-            ) {
 
-                state.currentStep++;
+        if (
+            task.completedSteps >=
+            task.steps.length
+        ) {
 
-            }
+            finishCurrentTask();
 
+        }
 
-            /*
-                Convert step completion
-                into task percentage.
-            */
+        else {
 
-            task.progress =
-                Math.min(
+            state.currentStep =
+                task.completedSteps;
 
-                    100,
-
-                    Math.round(
-
-                        (
-                            state.currentStep
-
-                            /
-
-                            task.steps.length
-                        )
-
-                        *
-
-                        100
-
-                    )
-
-                );
-
-
-            /*
-                TASK FINISHED
-            */
-
-            if (
-                task.progress
-                >= 100
-            ) {
-
-                task.completed =
-                    true;
-
-
-                /*
-                    Remove completed task
-                    from active workload.
-                */
-
-                state.activeTasks =
-                    state.activeTasks.filter(
-
-                        item =>
-                            item.id
-                            !==
-                            task.id
-
-                    );
-
-
-                /*
-                    Find next task that is waiting
-                    outside active capacity.
-                */
-
-                const nextWaiting =
-                    state.tasks.find(
-
-                        item =>
-
-                            !item.completed
-
-                            &&
-
-                            !state.activeTasks.some(
-
-                                active =>
-                                    active.id
-                                    === item.id
-
-                            )
-
-                    );
-
-
-                /*
-                    Allow one waiting task
-                    into the active workload.
-                */
-
-                if (
-                    nextWaiting
-
-                    &&
-
-                    state.activeTasks.length
-                    < 3
-                ) {
-
-                    state.activeTasks.push(
-                        nextWaiting
-                    );
-
-                }
-
-
-                /*
-                    Recalculate active priorities.
-                */
-
-                state.activeTasks.forEach(
-                    calculatePriority
-                );
-
-
-                state.activeTasks.sort(
-
-                    (
-                        first,
-                        second
-                    ) =>
-
-                        second.priorityScore
-                        -
-                        first.priorityScore
-
-                );
-
-
-                /*
-                    Focus moves to new first task.
-                */
-
-                state.currentTask =
-                    state.activeTasks[0]
-                    || null;
-
-
-                state.currentStep =
-                    0;
-
-
-                renderEverything();
-
-
-                return;
-
-            }
-
-
-            /*
-                Task still in progress.
-            */
 
             renderEverything();
 
         }
+
+    }
+);
+
+
+/* =========================================================
+   FINISH TASK
+========================================================= */
+
+
+function finishCurrentTask() {
+
+    const finishedTask =
+        state.currentTask;
+
+
+    if (!finishedTask) {
+        return;
+    }
+
+
+    if (
+        !state.completedTasks.some(
+            task =>
+                task.id ===
+                finishedTask.id
+        )
+    ) {
+
+        state.completedTasks.push(
+            finishedTask
+        );
+
+    }
+
+
+    state.activeTasks =
+        state.activeTasks.filter(
+            task =>
+                task.id !==
+                finishedTask.id
+        );
+
+
+    const activeIDs =
+        new Set(
+            state.activeTasks.map(
+                task =>
+                    task.id
+            )
+        );
+
+
+    const finishedIDs =
+        new Set(
+            state.completedTasks.map(
+                task =>
+                    task.id
+            )
+        );
+
+
+    const nextWaiting =
+        state.tasks.find(
+            task =>
+                !activeIDs.has(
+                    task.id
+                ) &&
+                !finishedIDs.has(
+                    task.id
+                )
+        );
+
+
+    if (
+        nextWaiting &&
+        state.activeTasks.length < 3
+    ) {
+
+        state.activeTasks.push(
+            nextWaiting
+        );
+
+    }
+
+
+    state.activeTasks.sort(
+        (
+            a,
+            b
+        ) =>
+            b.priorityScore -
+            a.priorityScore
     );
 
 
+    state.currentTask =
+        state.activeTasks[0] ||
+        null;
 
-/* ==========================
-   DEADLINE TEXT
-========================== */
 
-function getTaskDeadlineText(
-    task
-) {
+    state.currentStep =
+        state.currentTask
+
+            ? state.currentTask.completedSteps
+
+            : 0;
+
+
+    renderEverything();
+
+}
+
+
+/* =========================================================
+   TASK DEADLINE TEXT
+========================================================= */
+
+
+function getTaskDeadlineText(task) {
 
     if (
         task.deadline
     ) {
 
         return (
-
-            "Due "
-
-            +
-
+            "Due " +
             task.deadline
                 .toLocaleDateString(
-
-                    undefined,
-
+                    "en-US",
                     {
+                        weekday:
+                            "short",
 
                         month:
                             "short",
 
                         day:
-                            "numeric",
-
-                        hour:
-                            "numeric",
-
-                        minute:
-                            "2-digit"
-
+                            "numeric"
                     }
-
                 )
-
         );
 
     }
 
 
-    if (
-        task.timeline
-    ) {
-
-        return (
-            `Timeline: ${task.timeline}`
-        );
-
-    }
-
-
-    return (
-        "No exact deadline yet"
-    );
+    return task.timeline;
 
 }
 
 
+/* =========================================================
+   DURATION
+========================================================= */
 
-/* ==========================
-   DURATION TEXT
-========================== */
 
-function formatDuration(
-    minutes
-) {
+function formatDuration(minutes) {
 
     if (
         minutes < 60
@@ -2742,65 +2086,132 @@ function formatDuration(
     }
 
 
-    const hours =
-        minutes / 60;
-
-
     if (
-        Number.isInteger(
-            hours
-        )
+        minutes % 60 === 0
     ) {
 
-        return `${hours} hr`;
+        const hours =
+            minutes / 60;
+
+
+        return hours === 1
+
+            ? "1 hour"
+
+            : `${hours} hours`;
 
     }
 
 
-    return `${hours.toFixed(1)} hr`;
+    const hours =
+        Math.floor(
+            minutes / 60
+        );
+
+
+    const remainingMinutes =
+        minutes % 60;
+
+
+    return (
+        `${hours}h ${remainingMinutes}m`
+    );
 
 }
 
 
+/* =========================================================
+   PROFILE
+========================================================= */
 
-/* ==========================
+
+function renderProfile() {
+
+    const total =
+        state.tasks.length;
+
+
+    const finished =
+        state.completedTasks.length;
+
+
+    const active =
+        state.activeTasks.length;
+
+
+    const waiting =
+        Math.max(
+            0,
+            total -
+            finished -
+            active
+        );
+
+
+    const percent =
+        total > 0
+
+            ? Math.round(
+                finished /
+                total *
+                100
+            )
+
+            : 0;
+
+
+    profilePercent.textContent =
+        `${percent}%`;
+
+
+    profileActive.textContent =
+        active;
+
+
+    profileWaiting.textContent =
+        waiting;
+
+
+    profileFinished.textContent =
+        finished;
+
+}
+
+
+/* =========================================================
    RENDER EVERYTHING
-========================== */
+========================================================= */
+
 
 function renderEverything() {
+
+    renderTaskLists();
+
+    renderIntervention();
+
+    renderPlanProgress();
+
+    renderFocus();
+
+    renderProfile();
 
     drawCalendar(
         "homeCalendar"
     );
 
-
     drawCalendar(
         "planCalendar"
     );
 
-
-    renderTaskLists();
-
-
-    renderIntervention();
-
-
-    renderPlanProgress();
-
-
-    renderFocus();
-
 }
 
 
-
-/* ==========================
+/* =========================================================
    SCREEN NAVIGATION
-========================== */
+========================================================= */
 
-function showScreen(
-    screenID
-) {
+
+function showScreen(screenID) {
 
     document
         .querySelectorAll(
@@ -2809,26 +2220,14 @@ function showScreen(
         .forEach(
             screen => {
 
-                screen.classList.remove(
-                    "active"
+                screen.classList.toggle(
+                    "active",
+                    screen.id === screenID
                 );
 
             }
         );
 
-
-    document
-        .getElementById(
-            screenID
-        )
-        .classList.add(
-            "active"
-        );
-
-
-    /*
-        Highlight matching nav item.
-    */
 
     document
         .querySelectorAll(
@@ -2838,35 +2237,67 @@ function showScreen(
             button => {
 
                 button.classList.toggle(
-
                     "active",
-
-                    button.dataset.target
-                    ===
+                    button.dataset.target ===
                     screenID
-
                 );
 
             }
         );
 
 
-    /*
-        Start each screen at the top.
-    */
+    document
+        .querySelectorAll(
+            ".menu-button"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+                    "active",
+                    screenID ===
+                    "profileScreen"
+                );
+
+            }
+        );
+
+
+    if (
+        screenID ===
+        "profileScreen"
+    ) {
+
+        renderProfile();
+
+    }
+
+
+    if (
+        screenID ===
+        "focusScreen"
+    ) {
+
+        renderFocus();
+
+    }
+
 
     window.scrollTo(
-        0,
-        0
+        {
+            top: 0,
+            behavior:
+                "smooth"
+        }
     );
 
 }
 
 
-
-/* ==========================
+/* =========================================================
    NAV BUTTONS
-========================== */
+========================================================= */
+
 
 document
     .querySelectorAll(
@@ -2890,110 +2321,102 @@ document
     );
 
 
-
-/* ==========================
+/* =========================================================
    QUICK DUMP
-========================== */
+========================================================= */
+
 
 document
-    .getElementById(
-        "quickDump"
+    .querySelectorAll(
+        "[data-quick-dump]"
     )
-    .addEventListener(
-        "click",
-        () => {
+    .forEach(
+        button => {
 
-            showScreen(
-                "homeScreen"
-            );
-
-
-            setTimeout(
+            button.addEventListener(
+                "click",
                 () => {
 
-                    stressInput.focus();
+                    showScreen(
+                        "homeScreen"
+                    );
 
-                },
-                100
+
+                    setTimeout(
+                        () => {
+
+                            stressInput.focus();
+
+
+                            stressInput.scrollIntoView(
+                                {
+                                    behavior:
+                                        "smooth",
+
+                                    block:
+                                        "center"
+                                }
+                            );
+
+                        },
+                        120
+                    );
+
+                }
             );
 
         }
     );
 
 
-
-/* ==========================
-   VIEW PLAN BUTTON
-========================== */
-
-viewPlanButton
-    .addEventListener(
-        "click",
-        () => {
-
-            showScreen(
-                "planScreen"
-            );
-
-        }
-    );
+/* =========================================================
+   ORGANIZE
+========================================================= */
 
 
-
-/* ==========================
-   ORGANIZE BUTTON
-========================== */
-
-organizeButton
-    .addEventListener(
-        "click",
-        organizeDump
-    );
+organizeButton.addEventListener(
+    "click",
+    organizeDump
+);
 
 
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
-/* ==========================
-   HTML SAFETY
-========================== */
 
-function escapeHTML(
-    value
-) {
+function escapeHTML(value) {
 
     return String(
         value
     )
-
-        .replace(
-            /&/g,
+        .replaceAll(
+            "&",
             "&amp;"
         )
-
-        .replace(
-            /</g,
+        .replaceAll(
+            "<",
             "&lt;"
         )
-
-        .replace(
-            />/g,
+        .replaceAll(
+            ">",
             "&gt;"
         )
-
-        .replace(
-            /"/g,
+        .replaceAll(
+            '"',
             "&quot;"
         )
-
-        .replace(
-            /'/g,
+        .replaceAll(
+            "'",
             "&#039;"
         );
 
 }
 
 
-/* ==========================
-   INITIAL RENDER
-========================== */
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
 
 renderEverything();
