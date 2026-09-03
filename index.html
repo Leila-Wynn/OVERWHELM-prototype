@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overwhelm</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="app">
+
+    <!-- SCREEN 01 — HOME / DUMP -->
+    <section class="screen active" id="home">
+
+      <header class="hero">
+        <p class="small-label">OVERWHELM</p>
+
+        <h1>
+          Hello, Alex.<br />
+          What's overwhelming you?
+        </h1>
+      </header>
+
+      <div class="page-content">
+
+        <section class="dump-card">
+          <textarea
+            id="dumpInput"
+            placeholder="Type everything here. It doesn't need to be organized."
+          ></textarea>
+
+          <div class="dump-bottom">
+            <span id="dumpMessage">I'll help sort it.</span>
+            <button id="organizeButton">Organize it</button>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">
+            <h2>September</h2>
+            <span>Deadlines</span>
+          </div>
+
+          <div class="calendar" id="homeCalendar"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">
+            <h2>Tasks</h2>
+            <span>3 active</span>
+          </div>
+
+          <div class="tasks">
+
+            <button class="task focus-link">
+              <span class="task-dot urgent"></span>
+
+              <span>
+                <strong>Web Design proposal</strong>
+                <small>Due soon · about 2 hr left</small>
+              </span>
+            </button>
+
+            <button class="task">
+              <span class="task-dot attention"></span>
+
+              <span>
+                <strong>Finish business module</strong>
+                <small>This week · about 45 min</small>
+              </span>
+            </button>
+
+            <button class="task">
+              <span class="task-dot calm"></span>
+
+              <span>
+                <strong>College application notes</strong>
+                <small>Soon · about 30 min</small>
+              </span>
+            </button>
+
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+
+    <!-- SCREEN 02 — PLAN -->
+    <section class="screen" id="plan">
+
+      <div class="page-content top-space">
+
+        <p class="small-label">YOUR PLAN</p>
+
+        <h1 class="page-title">September</h1>
+
+        <div class="calendar" id="planCalendar"></div>
+
+        <div class="deadline-info">
+
+          <div>
+            <strong>Next deadline</strong>
+            <span>Sep 6 · 11:59 PM</span>
+          </div>
+
+          <div>
+            <strong>Work remaining</strong>
+            <span>2 hr 45 min</span>
+          </div>
+
+        </div>
+
+
+        <section class="progress-area">
+
+          <div class="progress-ring">
+            <div class="progress-center">
+              45%
+            </div>
+          </div>
+
+          <div>
+            <p class="small-label">TODAY'S PROGRESS</p>
+
+            <h2>You're working through it.</h2>
+
+            <p class="muted">
+              Only your active workload is shown.
+            </p>
+          </div>
+
+        </section>
+
+
+        <section class="section">
+
+          <div class="section-title">
+            <h2>First → next → later</h2>
+            <span>3 active</span>
+          </div>
+
+          <div class="tasks">
+
+            <button class="task focus-link">
+              <span class="task-dot urgent"></span>
+
+              <span>
+                <strong>1. Web Design proposal</strong>
+                <small>Do this first</small>
+              </span>
+            </button>
+
+            <button class="task">
+              <span class="task-dot attention"></span>
+
+              <span>
+                <strong>2. Business module</strong>
+                <small>45 min</small>
+              </span>
+            </button>
+
+            <button class="task">
+              <span class="task-dot calm"></span>
+
+              <span>
+                <strong>3. Application notes</strong>
+                <small>30 min</small>
+              </span>
+            </button>
+
+          </div>
+
+        </section>
+
+      </div>
+    </section>
+
+
+    <!-- SCREEN 03 — TODAY'S TASK -->
+    <section class="screen" id="focus">
+
+      <div class="page-content top-space focus-content">
+
+        <p class="small-label">FOCUS</p>
+
+        <h1 class="page-title">Today's task.</h1>
+
+        <div class="focus-summary">
+
+          <div class="progress-ring">
+            <div class="progress-center">
+              45%
+            </div>
+          </div>
+
+          <div>
+            <h2>Web Design proposal</h2>
+
+            <p class="muted">
+              About 2 hours remaining
+            </p>
+          </div>
+
+        </div>
+
+
+        <section class="steps">
+
+          <h2>Step by step.</h2>
+
+          <div class="step done">
+            <span>✓</span>
+            Choose the site concept
+          </div>
+
+          <div class="step done">
+            <span>✓</span>
+            Define the audience
+          </div>
+
+          <div class="step current">
+            <span>3</span>
+            Write the proposal
+          </div>
+
+          <div class="step">
+            <span>4</span>
+            Check requirements
+          </div>
+
+        </section>
+
+        <p class="focus-message">
+          This is all you need to worry about right now.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+
+      <button class="nav-button active" data-screen="home">
+        Home
+      </button>
+
+      <button class="nav-button" data-screen="plan">
+        Plan
+      </button>
+
+      <button class="quick-dump" data-screen="home">
+        +
+      </button>
+
+      <button class="nav-button" data-screen="focus">
+        Focus
+      </button>
+
+    </nav>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
