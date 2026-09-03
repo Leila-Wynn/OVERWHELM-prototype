@@ -1,269 +1,581 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>Overwhelm</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <main class="app">
 
-    <!-- SCREEN 01 — HOME / DUMP -->
-    <section class="screen active" id="home">
+<main class="prototype">
+
+  <section class="phone">
+
+    <!-- =======================
+         HOME / DUMP
+    ======================== -->
+
+    <section
+      class="screen active"
+      id="homeScreen"
+    >
 
       <header class="hero">
-        <p class="small-label">OVERWHELM</p>
 
-        <h1>
-          Hello, Alex.<br />
-          What's overwhelming you?
-        </h1>
-      </header>
-
-      <div class="page-content">
-
-        <section class="dump-card">
-          <textarea
-            id="dumpInput"
-            placeholder="Type everything here. It doesn't need to be organized."
-          ></textarea>
-
-          <div class="dump-bottom">
-            <span id="dumpMessage">I'll help sort it.</span>
-            <button id="organizeButton">Organize it</button>
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="section-title">
-            <h2>September</h2>
-            <span>Deadlines</span>
-          </div>
-
-          <div class="calendar" id="homeCalendar"></div>
-        </section>
-
-        <section class="section">
-          <div class="section-title">
-            <h2>Tasks</h2>
-            <span>3 active</span>
-          </div>
-
-          <div class="tasks">
-
-            <button class="task focus-link">
-              <span class="task-dot urgent"></span>
-
-              <span>
-                <strong>Web Design proposal</strong>
-                <small>Due soon · about 2 hr left</small>
-              </span>
-            </button>
-
-            <button class="task">
-              <span class="task-dot attention"></span>
-
-              <span>
-                <strong>Finish business module</strong>
-                <small>This week · about 45 min</small>
-              </span>
-            </button>
-
-            <button class="task">
-              <span class="task-dot calm"></span>
-
-              <span>
-                <strong>College application notes</strong>
-                <small>Soon · about 30 min</small>
-              </span>
-            </button>
-
-          </div>
-        </section>
-
-      </div>
-    </section>
-
-
-    <!-- SCREEN 02 — PLAN -->
-    <section class="screen" id="plan">
-
-      <div class="page-content top-space">
-
-        <p class="small-label">YOUR PLAN</p>
-
-        <h1 class="page-title">September</h1>
-
-        <div class="calendar" id="planCalendar"></div>
-
-        <div class="deadline-info">
-
-          <div>
-            <strong>Next deadline</strong>
-            <span>Sep 6 · 11:59 PM</span>
-          </div>
-
-          <div>
-            <strong>Work remaining</strong>
-            <span>2 hr 45 min</span>
-          </div>
-
-        </div>
-
-
-        <section class="progress-area">
-
-          <div class="progress-ring">
-            <div class="progress-center">
-              45%
-            </div>
-          </div>
-
-          <div>
-            <p class="small-label">TODAY'S PROGRESS</p>
-
-            <h2>You're working through it.</h2>
-
-            <p class="muted">
-              Only your active workload is shown.
-            </p>
-          </div>
-
-        </section>
-
-
-        <section class="section">
-
-          <div class="section-title">
-            <h2>First → next → later</h2>
-            <span>3 active</span>
-          </div>
-
-          <div class="tasks">
-
-            <button class="task focus-link">
-              <span class="task-dot urgent"></span>
-
-              <span>
-                <strong>1. Web Design proposal</strong>
-                <small>Do this first</small>
-              </span>
-            </button>
-
-            <button class="task">
-              <span class="task-dot attention"></span>
-
-              <span>
-                <strong>2. Business module</strong>
-                <small>45 min</small>
-              </span>
-            </button>
-
-            <button class="task">
-              <span class="task-dot calm"></span>
-
-              <span>
-                <strong>3. Application notes</strong>
-                <small>30 min</small>
-              </span>
-            </button>
-
-          </div>
-
-        </section>
-
-      </div>
-    </section>
-
-
-    <!-- SCREEN 03 — TODAY'S TASK -->
-    <section class="screen" id="focus">
-
-      <div class="page-content top-space focus-content">
-
-        <p class="small-label">FOCUS</p>
-
-        <h1 class="page-title">Today's task.</h1>
-
-        <div class="focus-summary">
-
-          <div class="progress-ring">
-            <div class="progress-center">
-              45%
-            </div>
-          </div>
-
-          <div>
-            <h2>Web Design proposal</h2>
-
-            <p class="muted">
-              About 2 hours remaining
-            </p>
-          </div>
-
-        </div>
-
-
-        <section class="steps">
-
-          <h2>Step by step.</h2>
-
-          <div class="step done">
-            <span>✓</span>
-            Choose the site concept
-          </div>
-
-          <div class="step done">
-            <span>✓</span>
-            Define the audience
-          </div>
-
-          <div class="step current">
-            <span>3</span>
-            Write the proposal
-          </div>
-
-          <div class="step">
-            <span>4</span>
-            Check requirements
-          </div>
-
-        </section>
-
-        <p class="focus-message">
-          This is all you need to worry about right now.
+        <p class="brand">
+          OVERWHELM
         </p>
 
+        <h1>
+          Hello, Alex.
+
+          <span>
+            What's overwhelming you?
+          </span>
+        </h1>
+
+        <p class="hero-note">
+          Don't organize it.
+          Just tell me what's going on.
+        </p>
+
+        <div
+          class="hero-wave"
+          aria-hidden="true"
+        ></div>
+
+      </header>
+
+
+      <div class="content">
+
+        <section>
+
+          <label
+            class="section-label"
+            for="stressInput"
+          >
+            Get it out of your head.
+          </label>
+
+
+          <div class="glass-card dump-card">
+
+            <textarea
+              id="stressInput"
+              placeholder="Example: I have my web design proposal due September 6 at 11:59 PM and I probably need 2 hours. My business module needs to be done this week and takes about 45 minutes. I also need to work on my application soon."
+            ></textarea>
+
+
+            <div class="dump-actions">
+
+              <p id="dumpMessage">
+                Messy is fine.
+              </p>
+
+              <button
+                class="primary-button"
+                id="organizeButton"
+                type="button"
+              >
+                Help me sort this
+                <span aria-hidden="true">→</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- CALENDAR -->
+
+        <section class="month-section">
+
+          <div class="section-heading">
+
+            <div>
+
+              <p class="section-kicker">
+                DEADLINES
+              </p>
+
+              <h2 id="monthTitle">
+                September
+              </h2>
+
+            </div>
+
+            <span class="small-copy">
+              Due-date map
+            </span>
+
+          </div>
+
+
+          <div class="month-card">
+
+            <div class="date-display">
+
+              <span
+                class="big-date"
+                id="todayNumber"
+              >
+                03
+              </span>
+
+              <div>
+
+                <strong id="todayMonth">
+                  September
+                </strong>
+
+                <span id="todayWeekday">
+                  Thursday
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="circle-calendar"
+              id="homeCalendar"
+            ></div>
+
+          </div>
+
+
+          <div class="calendar-legend">
+
+            <span>
+              <i class="legend clear"></i>
+              Clear
+            </span>
+
+            <span>
+              <i class="legend attention"></i>
+              Deadline
+            </span>
+
+            <span>
+              <i class="legend urgent">!</i>
+              Urgent
+            </span>
+
+          </div>
+
+        </section>
+
+
+        <!-- GENERATED RESULTS -->
+
+        <section
+          class="results-section hidden"
+          id="resultsSection"
+        >
+
+          <div class="section-heading">
+
+            <div>
+
+              <p class="section-kicker">
+                I SORTED IT
+              </p>
+
+              <h2>
+                Here's what matters.
+              </h2>
+
+            </div>
+
+            <span
+              class="capacity"
+              id="capacityLabel"
+            >
+              0 / 3
+            </span>
+
+          </div>
+
+
+          <div
+            class="task-stack"
+            id="homeTasks"
+          ></div>
+
+
+          <div class="capacity-note">
+
+            <strong>
+              Active workload limited.
+            </strong>
+
+            <span>
+              Everything else stays out of your way.
+            </span>
+
+          </div>
+
+
+          <button
+            class="continue-button"
+            id="viewPlanButton"
+            type="button"
+          >
+            Show me my plan
+            <span aria-hidden="true">→</span>
+          </button>
+
+        </section>
+
       </div>
 
     </section>
 
 
-    <!-- BOTTOM NAVIGATION -->
-    <nav class="bottom-nav">
 
-      <button class="nav-button active" data-screen="home">
+    <!-- =======================
+         PLAN
+    ======================== -->
+
+    <section
+      class="screen"
+      id="planScreen"
+    >
+
+      <div class="content top-content">
+
+        <p class="section-kicker">
+          YOUR PLAN
+        </p>
+
+        <h1 class="page-title">
+          You don't need to do everything.
+        </h1>
+
+
+        <!-- DEADLINE INTERVENTION -->
+
+        <aside
+          class="intervention hidden"
+          id="intervention"
+          role="status"
+        >
+
+          <div class="intervention-icon">
+            !
+          </div>
+
+          <div>
+
+            <strong>
+              Your plan changed.
+            </strong>
+
+            <p id="interventionText">
+              A deadline needs your attention.
+            </p>
+
+          </div>
+
+        </aside>
+
+
+        <section class="plan-calendar-section">
+
+          <div class="section-heading">
+
+            <div>
+
+              <p class="section-kicker">
+                DEADLINES
+              </p>
+
+              <h2>
+                September
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="circle-calendar"
+            id="planCalendar"
+          ></div>
+
+        </section>
+
+
+        <section class="progress-section">
+
+          <div
+            class="progress-ring"
+            id="planProgress"
+          >
+
+            <div>
+              <strong id="planPercent">
+                0%
+              </strong>
+
+              <span>
+                active work
+              </span>
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <p class="section-kicker">
+              CURRENT CAPACITY
+            </p>
+
+            <h2 id="capacityHeading">
+              0 of 3 tasks
+            </h2>
+
+            <p class="muted">
+              The giant backlog stays hidden.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <section>
+
+          <div class="section-heading">
+
+            <div>
+
+              <p class="section-kicker">
+                ORDER OF ACTION
+              </p>
+
+              <h2>
+                First → next → later
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="task-stack"
+            id="planTasks"
+          ></div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================
+         FOCUS
+    ======================== -->
+
+    <section
+      class="screen"
+      id="focusScreen"
+    >
+
+      <div class="content top-content focus-content">
+
+        <p class="section-kicker">
+          FOCUS
+        </p>
+
+        <h1 class="page-title">
+          Today's task.
+        </h1>
+
+
+        <div
+          class="empty-focus hidden"
+          id="emptyFocus"
+        >
+
+          <h2>
+            You're good.
+          </h2>
+
+          <p>
+            Nothing needs your attention right now.
+          </p>
+
+        </div>
+
+
+        <div id="focusWorkspace">
+
+          <section class="focus-summary">
+
+            <div
+              class="progress-ring large"
+              id="focusProgressRing"
+            >
+
+              <strong id="focusPercent">
+                0%
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <h2 id="focusTaskTitle">
+                Your first task
+              </h2>
+
+              <p
+                class="muted"
+                id="focusDeadline"
+              >
+              </p>
+
+            </div>
+
+          </section>
+
+
+          <section class="steps-section">
+
+            <div class="section-heading">
+
+              <div>
+
+                <p class="section-kicker">
+                  ONE THING AT A TIME
+                </p>
+
+                <h2>
+                  Step by step.
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div
+              id="stepList"
+              class="steps"
+            ></div>
+
+          </section>
+
+
+          <button
+            class="primary-button finish-step-button"
+            id="finishStepButton"
+            type="button"
+          >
+            Finish current step
+          </button>
+
+
+          <div class="focus-footer">
+
+            <p>
+              Everything else can wait.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================
+         NAVIGATION
+    ======================== -->
+
+    <nav
+      class="bottom-nav"
+      aria-label="Primary navigation"
+    >
+
+      <button
+        type="button"
+        class="nav-button active"
+        data-target="homeScreen"
+      >
+        <span>◉</span>
         Home
       </button>
 
-      <button class="nav-button" data-screen="plan">
+
+      <button
+        type="button"
+        class="nav-button"
+        data-target="planScreen"
+      >
+        <span>○</span>
         Plan
       </button>
 
-      <button class="quick-dump" data-screen="home">
+
+      <button
+        type="button"
+        class="quick-button"
+        id="quickDump"
+        aria-label="Quick dump"
+      >
         +
       </button>
 
-      <button class="nav-button" data-screen="focus">
+
+      <button
+        type="button"
+        class="nav-button"
+        data-target="focusScreen"
+      >
+        <span>◌</span>
         Focus
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-button"
+      >
+        <span>•••</span>
+        More
       </button>
 
     </nav>
 
-  </main>
+  </section>
 
-  <script src="script.js"></script>
+</main>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>
