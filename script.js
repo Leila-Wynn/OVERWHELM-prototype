@@ -1,6 +1,6 @@
 /* =========================================================
    OVERWHELM
-   COMPLETE WORKING PROTOTYPE
+   REAL APP PHASE 1 — PERSISTENT DATA
 
    01 Home / Dump
    02 Plan
@@ -33,6 +33,15 @@ const state = {
 
 
 /* =========================================================
+   STORAGE
+========================================================= */
+
+
+const STORAGE_KEY =
+    "overwhelm-app-state";
+
+
+/* =========================================================
    DOM
 ========================================================= */
 
@@ -42,119 +51,478 @@ const phone =
 
 
 const stressInput =
-    document.getElementById("stressInput");
+    document.getElementById(
+        "stressInput"
+    );
 
 
 const organizeButton =
-    document.getElementById("organizeButton");
+    document.getElementById(
+        "organizeButton"
+    );
 
 
 const dumpMessage =
-    document.getElementById("dumpMessage");
+    document.getElementById(
+        "dumpMessage"
+    );
 
 
 const resultsSection =
-    document.getElementById("resultsSection");
+    document.getElementById(
+        "resultsSection"
+    );
 
 
 const homeTasks =
-    document.getElementById("homeTasks");
+    document.getElementById(
+        "homeTasks"
+    );
 
 
 const planTasks =
-    document.getElementById("planTasks");
+    document.getElementById(
+        "planTasks"
+    );
 
 
 const capacityLabel =
-    document.getElementById("capacityLabel");
+    document.getElementById(
+        "capacityLabel"
+    );
 
 
 const capacityHeading =
-    document.getElementById("capacityHeading");
+    document.getElementById(
+        "capacityHeading"
+    );
 
 
 const intervention =
-    document.getElementById("intervention");
+    document.getElementById(
+        "intervention"
+    );
 
 
 const interventionText =
-    document.getElementById("interventionText");
+    document.getElementById(
+        "interventionText"
+    );
 
 
 const planProgress =
-    document.getElementById("planProgress");
+    document.getElementById(
+        "planProgress"
+    );
 
 
 const planProgressRing =
-    document.getElementById("planProgressRing");
+    document.getElementById(
+        "planProgressRing"
+    );
 
 
 const focusActiveState =
-    document.getElementById("focusActiveState");
+    document.getElementById(
+        "focusActiveState"
+    );
 
 
 const emptyFocus =
-    document.getElementById("emptyFocus");
+    document.getElementById(
+        "emptyFocus"
+    );
 
 
 const focusTaskTitle =
-    document.getElementById("focusTaskTitle");
+    document.getElementById(
+        "focusTaskTitle"
+    );
 
 
 const focusDeadline =
-    document.getElementById("focusDeadline");
+    document.getElementById(
+        "focusDeadline"
+    );
 
 
 const focusPercent =
-    document.getElementById("focusPercent");
+    document.getElementById(
+        "focusPercent"
+    );
 
 
 const focusProgressRing =
-    document.getElementById("focusProgressRing");
+    document.getElementById(
+        "focusProgressRing"
+    );
 
 
 const stepList =
-    document.getElementById("stepList");
+    document.getElementById(
+        "stepList"
+    );
 
 
 const finishStepButton =
-    document.getElementById("finishStepButton");
+    document.getElementById(
+        "finishStepButton"
+    );
 
 
 /* PROFILE */
 
+
 const profilePercent =
-    document.getElementById("profilePercent");
+    document.getElementById(
+        "profilePercent"
+    );
 
 
 const profileActive =
-    document.getElementById("profileActive");
+    document.getElementById(
+        "profileActive"
+    );
 
 
 const profileWaiting =
-    document.getElementById("profileWaiting");
+    document.getElementById(
+        "profileWaiting"
+    );
 
 
 const profileFinished =
-    document.getElementById("profileFinished");
+    document.getElementById(
+        "profileFinished"
+    );
 
 
 /* DATE */
 
+
 const todayNumber =
-    document.getElementById("todayNumber");
+    document.getElementById(
+        "todayNumber"
+    );
 
 
 const todayMonth =
-    document.getElementById("todayMonth");
+    document.getElementById(
+        "todayMonth"
+    );
 
 
 const todayWeekday =
-    document.getElementById("todayWeekday");
+    document.getElementById(
+        "todayWeekday"
+    );
 
 
 const monthTitle =
-    document.getElementById("monthTitle");
+    document.getElementById(
+        "monthTitle"
+    );
+
+
+/* =========================================================
+   SAVE APP
+========================================================= */
+
+
+function saveState() {
+
+    const data = {
+
+        tasks:
+            state.tasks,
+
+        activeTaskIDs:
+            state.activeTasks.map(
+                task => task.id
+            ),
+
+        completedTaskIDs:
+            state.completedTasks.map(
+                task => task.id
+            ),
+
+        currentTaskID:
+            state.currentTask
+                ? state.currentTask.id
+                : null,
+
+        currentStep:
+            state.currentStep,
+
+        stressDump:
+            stressInput
+                ? stressInput.value
+                : ""
+
+    };
+
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(data)
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Overwhelm could not save:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESTORE TASK
+========================================================= */
+
+
+function restoreTask(task) {
+
+    return {
+
+        ...task,
+
+        deadline:
+            task.deadline
+                ? new Date(
+                    task.deadline
+                )
+                : null,
+
+        completedSteps:
+            task.completedSteps || 0,
+
+        steps:
+            Array.isArray(
+                task.steps
+            )
+                ? task.steps
+                : []
+
+    };
+
+}
+
+
+/* =========================================================
+   LOAD SAVED APP
+========================================================= */
+
+
+function loadState() {
+
+    const saved =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
+
+
+    if (!saved) {
+
+        return false;
+
+    }
+
+
+    try {
+
+        const data =
+            JSON.parse(
+                saved
+            );
+
+
+        state.tasks =
+            (
+                Array.isArray(
+                    data.tasks
+                )
+                    ? data.tasks
+                    : []
+            )
+                .map(
+                    restoreTask
+                );
+
+
+        /* Recalculate priority when
+           the app opens again because
+           deadlines may now be closer. */
+
+
+        state.tasks.forEach(
+            task => {
+
+                const priority =
+                    calculatePriority(
+                        task
+                    );
+
+
+                task.priorityScore =
+                    priority.score;
+
+
+                task.priorityLevel =
+                    priority.level;
+
+
+                if (
+                    task.steps.length === 0
+                ) {
+
+                    task.steps =
+                        generateSteps(
+                            task
+                        );
+
+                }
+
+            }
+        );
+
+
+        const taskMap =
+            new Map(
+                state.tasks.map(
+                    task => [
+
+                        task.id,
+                        task
+
+                    ]
+                )
+            );
+
+
+        state.activeTasks =
+            (
+                Array.isArray(
+                    data.activeTaskIDs
+                )
+                    ? data.activeTaskIDs
+                    : []
+            )
+                .map(
+                    id =>
+                        taskMap.get(
+                            id
+                        )
+                )
+                .filter(
+                    Boolean
+                );
+
+
+        state.completedTasks =
+            (
+                Array.isArray(
+                    data.completedTaskIDs
+                )
+                    ? data.completedTaskIDs
+                    : []
+            )
+                .map(
+                    id =>
+                        taskMap.get(
+                            id
+                        )
+                )
+                .filter(
+                    Boolean
+                );
+
+
+        /* Keep active tasks ordered
+           according to current urgency. */
+
+
+        state.activeTasks.sort(
+            (
+                a,
+                b
+            ) =>
+                b.priorityScore -
+                a.priorityScore
+        );
+
+
+        state.currentTask =
+            data.currentTaskID
+                ? taskMap.get(
+                    data.currentTaskID
+                ) || null
+                : state.activeTasks[0] ||
+                  null;
+
+
+        /* If saved current task is no
+           longer active, use first task. */
+
+
+        if (
+            state.currentTask &&
+            !state.activeTasks.some(
+                task =>
+                    task.id ===
+                    state.currentTask.id
+            )
+        ) {
+
+            state.currentTask =
+                state.activeTasks[0] ||
+                null;
+
+        }
+
+
+        state.currentStep =
+            Number(
+                data.currentStep
+            ) || 0;
+
+
+        if (
+            stressInput &&
+            typeof data.stressDump ===
+                "string"
+        ) {
+
+            stressInput.value =
+                data.stressDump;
+
+        }
+
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Overwhelm could not restore saved data:",
+            error
+        );
+
+
+        return false;
+
+    }
+
+}
 
 
 /* =========================================================
@@ -214,7 +582,9 @@ monthTitle.textContent =
 ========================================================= */
 
 
-function drawCalendar(containerID) {
+function drawCalendar(
+    containerID
+) {
 
     const container =
         document.getElementById(
@@ -223,7 +593,9 @@ function drawCalendar(containerID) {
 
 
     if (!container) {
+
         return;
+
     }
 
 
@@ -231,12 +603,16 @@ function drawCalendar(containerID) {
         "";
 
 
+    const currentDate =
+        new Date();
+
+
     const year =
-        now.getFullYear();
+        currentDate.getFullYear();
 
 
     const month =
-        now.getMonth();
+        currentDate.getMonth();
 
 
     const daysInMonth =
@@ -273,7 +649,8 @@ function drawCalendar(containerID) {
 
         dayButton.setAttribute(
             "aria-label",
-            `${now.toLocaleDateString(
+
+            `${currentDate.toLocaleDateString(
                 "en-US",
                 {
                     month:
@@ -284,7 +661,8 @@ function drawCalendar(containerID) {
 
 
         if (
-            day === now.getDate()
+            day ===
+            currentDate.getDate()
         ) {
 
             dayButton
@@ -299,17 +677,30 @@ function drawCalendar(containerID) {
         const matchingTask =
             state.tasks.find(
                 task =>
+
                     task.deadline &&
-                    task.deadline.getFullYear() === year &&
-                    task.deadline.getMonth() === month &&
-                    task.deadline.getDate() === day
+
+                    task.deadline
+                        .getFullYear() ===
+                        year &&
+
+                    task.deadline
+                        .getMonth() ===
+                        month &&
+
+                    task.deadline
+                        .getDate() ===
+                        day
             );
 
 
-        if (matchingTask) {
+        if (
+            matchingTask
+        ) {
 
             if (
-                matchingTask.priorityLevel ===
+                matchingTask
+                    .priorityLevel ===
                 "urgent"
             ) {
 
@@ -348,7 +739,9 @@ function drawCalendar(containerID) {
 ========================================================= */
 
 
-function extractTasks(text) {
+function extractTasks(
+    text
+) {
 
     const normalized =
         text
@@ -363,8 +756,12 @@ function extractTasks(text) {
             .trim();
 
 
-    if (!normalized) {
+    if (
+        !normalized
+    ) {
+
         return [];
+
     }
 
 
@@ -377,7 +774,9 @@ function extractTasks(text) {
                 item =>
                     item.trim()
             )
-            .filter(Boolean);
+            .filter(
+                Boolean
+            );
 
 
     if (
@@ -393,7 +792,9 @@ function extractTasks(text) {
                     item =>
                         item.trim()
                 )
-                .filter(Boolean);
+                .filter(
+                    Boolean
+                );
 
     }
 
@@ -435,9 +836,12 @@ function extractTasks(text) {
 
                 taskWords.some(
                     word =>
+
                         sentence
                             .toLowerCase()
-                            .includes(word)
+                            .includes(
+                                word
+                            )
                 )
         );
 
@@ -456,10 +860,12 @@ function extractTasks(text) {
 
 
     return taskPieces
+
         .slice(
             0,
             12
         )
+
         .map(
             createTaskFromSentence
         );
@@ -472,7 +878,9 @@ function extractTasks(text) {
 ========================================================= */
 
 
-function createTaskFromSentence(sentence) {
+function createTaskFromSentence(
+    sentence
+) {
 
     const task = {
 
@@ -544,11 +952,22 @@ function createTaskFromSentence(sentence) {
 function createID() {
 
     return (
+
         Date.now()
-            .toString(36) +
+            .toString(
+                36
+            )
+
+        +
+
         Math.random()
-            .toString(36)
-            .slice(2)
+            .toString(
+                36
+            )
+            .slice(
+                2
+            )
+
     );
 
 }
@@ -559,7 +978,9 @@ function createID() {
 ========================================================= */
 
 
-function cleanTaskTitle(sentence) {
+function cleanTaskTitle(
+    sentence
+) {
 
     let title =
         sentence
@@ -570,7 +991,9 @@ function cleanTaskTitle(sentence) {
             .trim();
 
 
-    if (!title) {
+    if (
+        !title
+    ) {
 
         title =
             sentence.trim();
@@ -579,10 +1002,19 @@ function cleanTaskTitle(sentence) {
 
 
     return (
+
         title
-            .charAt(0)
-            .toUpperCase() +
-        title.slice(1)
+            .charAt(
+                0
+            )
+            .toUpperCase()
+
+        +
+
+        title.slice(
+            1
+        )
+
     );
 
 }
@@ -593,7 +1025,9 @@ function cleanTaskTitle(sentence) {
 ========================================================= */
 
 
-function detectDuration(text) {
+function detectDuration(
+    text
+) {
 
     const lower =
         text.toLowerCase();
@@ -605,10 +1039,13 @@ function detectDuration(text) {
         );
 
 
-    if (hourMatch) {
+    if (
+        hourMatch
+    ) {
 
         return Math.max(
             5,
+
             Math.round(
                 Number(
                     hourMatch[1]
@@ -625,10 +1062,13 @@ function detectDuration(text) {
         );
 
 
-    if (minuteMatch) {
+    if (
+        minuteMatch
+    ) {
 
         return Math.max(
             5,
+
             Number(
                 minuteMatch[1]
             )
@@ -647,7 +1087,9 @@ function detectDuration(text) {
 ========================================================= */
 
 
-function detectTimeline(text) {
+function detectTimeline(
+    text
+) {
 
     const lower =
         text.toLowerCase();
@@ -693,24 +1135,31 @@ function detectTimeline(text) {
         lower.includes(
             "this week"
         ) ||
+
         lower.includes(
             "monday"
         ) ||
+
         lower.includes(
             "tuesday"
         ) ||
+
         lower.includes(
             "wednesday"
         ) ||
+
         lower.includes(
             "thursday"
         ) ||
+
         lower.includes(
             "friday"
         ) ||
+
         lower.includes(
             "saturday"
         ) ||
+
         lower.includes(
             "sunday"
         )
@@ -742,7 +1191,9 @@ function detectTimeline(text) {
 ========================================================= */
 
 
-function detectDeadline(text) {
+function detectDeadline(
+    text
+) {
 
     const lower =
         text.toLowerCase();
@@ -825,7 +1276,8 @@ function detectDeadline(text) {
 
     for (
         let index = 0;
-        index < weekdays.length;
+        index <
+            weekdays.length;
         index++
     ) {
 
@@ -856,8 +1308,11 @@ function detectDeadline(text) {
 
 
             date.setDate(
-                current.getDate() +
+
+                current.getDate()
+                +
                 difference
+
             );
 
 
@@ -899,6 +1354,7 @@ function detectDeadline(text) {
             monthName,
             monthIndex
         ]
+
         of Object.entries(
             months
         )
@@ -917,15 +1373,21 @@ function detectDeadline(text) {
             );
 
 
-        if (match) {
+        if (
+            match
+        ) {
 
             const date =
                 new Date(
+
                     current.getFullYear(),
+
                     monthIndex,
+
                     Number(
                         match[1]
                     ),
+
                     23,
                     59,
                     0,
@@ -938,8 +1400,8 @@ function detectDeadline(text) {
             ) {
 
                 date.setFullYear(
-                    current.getFullYear() +
-                    1
+                    current.getFullYear()
+                    + 1
                 );
 
             }
@@ -962,7 +1424,9 @@ function detectDeadline(text) {
 ========================================================= */
 
 
-function calculatePriority(task) {
+function calculatePriority(
+    task
+) {
 
     let score =
         0;
@@ -978,13 +1442,18 @@ function calculatePriority(task) {
 
         const remainingMinutes =
             (
-                task.deadline.getTime() -
+                task.deadline
+                    .getTime()
+                -
                 Date.now()
-            ) / 60000;
+            )
+            /
+            60000;
 
 
         const slack =
-            remainingMinutes -
+            remainingMinutes
+            -
             task.estimatedMinutes;
 
 
@@ -1045,8 +1514,11 @@ function calculatePriority(task) {
         score +=
             Math.max(
                 0,
+
                 200 -
-                remainingMinutes / 60
+                remainingMinutes
+                /
+                60
             );
 
     }
@@ -1095,6 +1567,7 @@ function calculatePriority(task) {
         else if (
             task.timeline ===
             "Tomorrow" ||
+
             task.timeline ===
             "This week"
         ) {
@@ -1107,12 +1580,14 @@ function calculatePriority(task) {
     }
 
 
-    /* Same priority?
-       Shorter task goes first. */
+    /* Same urgency?
+       Shorter task comes first. */
+
 
     score +=
         Math.max(
             0,
+
             100 -
             task.estimatedMinutes
         );
@@ -1141,7 +1616,9 @@ function organizeDump() {
             .trim();
 
 
-    if (!text) {
+    if (
+        !text
+    ) {
 
         dumpMessage.textContent =
             "Tell me what's overwhelming you first.";
@@ -1251,20 +1728,24 @@ function organizeDump() {
         );
 
 
+    saveState();
+
+
     renderEverything();
 
 
-    resultsSection.scrollIntoView(
-        {
+    resultsSection
+        .scrollIntoView(
+            {
 
-            behavior:
-                "smooth",
+                behavior:
+                    "smooth",
 
-            block:
-                "start"
+                block:
+                    "start"
 
-        }
-    );
+            }
+        );
 
 }
 
@@ -1329,7 +1810,9 @@ function createTaskCard(
         <span class="task-main">
 
             <strong>
-                ${escapeHTML(task.title)}
+                ${escapeHTML(
+                    task.title
+                )}
             </strong>
 
             <p>
@@ -1382,6 +1865,9 @@ function createTaskCard(
 
             state.currentStep =
                 task.completedSteps;
+
+
+            saveState();
 
 
             renderFocus();
@@ -1529,8 +2015,10 @@ function renderPlanProgress() {
         total > 0
 
             ? Math.round(
-                finished /
-                total *
+                finished
+                /
+                total
+                *
                 100
             )
 
@@ -1541,10 +2029,12 @@ function renderPlanProgress() {
         `${percent}%`;
 
 
-    planProgressRing.style.setProperty(
-        "--percent",
-        percent
-    );
+    planProgressRing
+        .style
+        .setProperty(
+            "--percent",
+            percent
+        );
 
 }
 
@@ -1560,7 +2050,9 @@ function renderFocus() {
         state.currentTask;
 
 
-    if (!task) {
+    if (
+        !task
+    ) {
 
         focusActiveState
             .classList
@@ -1609,8 +2101,10 @@ function renderFocus() {
         task.steps.length > 0
 
             ? Math.round(
-                task.completedSteps /
-                task.steps.length *
+                task.completedSteps
+                /
+                task.steps.length
+                *
                 100
             )
 
@@ -1621,10 +2115,12 @@ function renderFocus() {
         `${progress}%`;
 
 
-    focusProgressRing.style.setProperty(
-        "--percent",
-        progress
-    );
+    focusProgressRing
+        .style
+        .setProperty(
+            "--percent",
+            progress
+        );
 
 
     renderSteps();
@@ -1637,7 +2133,9 @@ function renderFocus() {
 ========================================================= */
 
 
-function generateSteps(task) {
+function generateSteps(
+    task
+) {
 
     const title =
         task.title.toLowerCase();
@@ -1647,12 +2145,15 @@ function generateSteps(task) {
         title.includes(
             "essay"
         ) ||
+
         title.includes(
             "paper"
         ) ||
+
         title.includes(
             "proposal"
         ) ||
+
         title.includes(
             "research"
         )
@@ -1706,6 +2207,7 @@ function generateSteps(task) {
         title.includes(
             "clean"
         ) ||
+
         title.includes(
             "room"
         )
@@ -1734,12 +2236,15 @@ function generateSteps(task) {
         title.includes(
             "study"
         ) ||
+
         title.includes(
             "test"
         ) ||
+
         title.includes(
             "quiz"
         ) ||
+
         title.includes(
             "exam"
         )
@@ -1798,8 +2303,12 @@ function renderSteps() {
         state.currentTask;
 
 
-    if (!task) {
+    if (
+        !task
+    ) {
+
         return;
+
     }
 
 
@@ -1877,51 +2386,59 @@ function renderSteps() {
 ========================================================= */
 
 
-finishStepButton.addEventListener(
-    "click",
-    () => {
+finishStepButton
+    .addEventListener(
+        "click",
+        () => {
 
-        const task =
-            state.currentTask;
+            const task =
+                state.currentTask;
 
 
-        if (!task) {
-            return;
+            if (
+                !task
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                task.completedSteps <
+                task.steps.length
+            ) {
+
+                task.completedSteps +=
+                    1;
+
+            }
+
+
+            if (
+                task.completedSteps >=
+                task.steps.length
+            ) {
+
+                finishCurrentTask();
+
+            }
+
+            else {
+
+                state.currentStep =
+                    task.completedSteps;
+
+
+                saveState();
+
+
+                renderEverything();
+
+            }
+
         }
-
-
-        if (
-            task.completedSteps <
-            task.steps.length
-        ) {
-
-            task.completedSteps +=
-                1;
-
-        }
-
-
-        if (
-            task.completedSteps >=
-            task.steps.length
-        ) {
-
-            finishCurrentTask();
-
-        }
-
-        else {
-
-            state.currentStep =
-                task.completedSteps;
-
-
-            renderEverything();
-
-        }
-
-    }
-);
+    );
 
 
 /* =========================================================
@@ -1935,8 +2452,12 @@ function finishCurrentTask() {
         state.currentTask;
 
 
-    if (!finishedTask) {
+    if (
+        !finishedTask
+    ) {
+
         return;
+
     }
 
 
@@ -1984,9 +2505,13 @@ function finishCurrentTask() {
     const nextWaiting =
         state.tasks.find(
             task =>
+
                 !activeIDs.has(
                     task.id
-                ) &&
+                )
+
+                &&
+
                 !finishedIDs.has(
                     task.id
                 )
@@ -2023,9 +2548,13 @@ function finishCurrentTask() {
     state.currentStep =
         state.currentTask
 
-            ? state.currentTask.completedSteps
+            ? state.currentTask
+                .completedSteps
 
             : 0;
+
+
+    saveState();
 
 
     renderEverything();
@@ -2038,18 +2567,25 @@ function finishCurrentTask() {
 ========================================================= */
 
 
-function getTaskDeadlineText(task) {
+function getTaskDeadlineText(
+    task
+) {
 
     if (
         task.deadline
     ) {
 
         return (
-            "Due " +
+
+            "Due "
+
+            +
+
             task.deadline
                 .toLocaleDateString(
                     "en-US",
                     {
+
                         weekday:
                             "short",
 
@@ -2058,8 +2594,10 @@ function getTaskDeadlineText(task) {
 
                         day:
                             "numeric"
+
                     }
                 )
+
         );
 
     }
@@ -2071,11 +2609,13 @@ function getTaskDeadlineText(task) {
 
 
 /* =========================================================
-   DURATION
+   DURATION FORMAT
 ========================================================= */
 
 
-function formatDuration(minutes) {
+function formatDuration(
+    minutes
+) {
 
     if (
         minutes < 60
@@ -2142,6 +2682,7 @@ function renderProfile() {
     const waiting =
         Math.max(
             0,
+
             total -
             finished -
             active
@@ -2152,8 +2693,10 @@ function renderProfile() {
         total > 0
 
             ? Math.round(
-                finished /
-                total *
+                finished
+                /
+                total
+                *
                 100
             )
 
@@ -2187,17 +2730,23 @@ function renderEverything() {
 
     renderTaskLists();
 
+
     renderIntervention();
+
 
     renderPlanProgress();
 
+
     renderFocus();
 
+
     renderProfile();
+
 
     drawCalendar(
         "homeCalendar"
     );
+
 
     drawCalendar(
         "planCalendar"
@@ -2211,7 +2760,9 @@ function renderEverything() {
 ========================================================= */
 
 
-function showScreen(screenID) {
+function showScreen(
+    screenID
+) {
 
     document
         .querySelectorAll(
@@ -2222,7 +2773,9 @@ function showScreen(screenID) {
 
                 screen.classList.toggle(
                     "active",
-                    screen.id === screenID
+
+                    screen.id ===
+                    screenID
                 );
 
             }
@@ -2238,6 +2791,7 @@ function showScreen(screenID) {
 
                 button.classList.toggle(
                     "active",
+
                     button.dataset.target ===
                     screenID
                 );
@@ -2255,6 +2809,7 @@ function showScreen(screenID) {
 
                 button.classList.toggle(
                     "active",
+
                     screenID ===
                     "profileScreen"
                 );
@@ -2285,9 +2840,13 @@ function showScreen(screenID) {
 
     window.scrollTo(
         {
-            top: 0,
+
+            top:
+                0,
+
             behavior:
                 "smooth"
+
         }
     );
 
@@ -2348,17 +2907,21 @@ document
                             stressInput.focus();
 
 
-                            stressInput.scrollIntoView(
-                                {
-                                    behavior:
-                                        "smooth",
+                            stressInput
+                                .scrollIntoView(
+                                    {
 
-                                    block:
-                                        "center"
-                                }
-                            );
+                                        behavior:
+                                            "smooth",
+
+                                        block:
+                                            "center"
+
+                                    }
+                                );
 
                         },
+
                         120
                     );
 
@@ -2374,10 +2937,27 @@ document
 ========================================================= */
 
 
-organizeButton.addEventListener(
-    "click",
-    organizeDump
-);
+organizeButton
+    .addEventListener(
+        "click",
+        organizeDump
+    );
+
+
+/* =========================================================
+   SAVE DUMP WHILE TYPING
+========================================================= */
+
+
+stressInput
+    .addEventListener(
+        "input",
+        () => {
+
+            saveState();
+
+        }
+    );
 
 
 /* =========================================================
@@ -2385,7 +2965,9 @@ organizeButton.addEventListener(
 ========================================================= */
 
 
-function escapeHTML(value) {
+function escapeHTML(
+    value
+) {
 
     return String(
         value
@@ -2409,6 +2991,29 @@ function escapeHTML(value) {
         .replaceAll(
             "'",
             "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   RESTORE SAVED APP
+========================================================= */
+
+
+const restored =
+    loadState();
+
+
+if (
+    restored &&
+    state.tasks.length > 0
+) {
+
+    resultsSection
+        .classList
+        .remove(
+            "hidden"
         );
 
 }
