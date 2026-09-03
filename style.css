@@ -2,25 +2,14 @@
 
 
 /* =========================================================
-   OVERWHELM — VISUAL SYSTEM V4
+   OVERWHELM — V4.3
+   CONTINUOUS GRADIENT + TRUE FROST
 
-   PALETTE FROM YOUR ACTUAL MOODBOARD
-
-   Gradient 01:
-   #EDE9DF → #ACCAD5
-
-   Gradient 02:
-   #EACFA3 → #ACCAD5
-
-   Gradient 03:
-   #ACCAD5 → #F0944D
-
-   Gradient 04:
-   #EACFA3 → #F0944D → #883322 → #283123
-
-   Gradient 05:
-   #883322 → #283123
+   IMPORTANT:
+   There is NO separate colored wave anymore.
+   One background flows through the entire screen.
 ========================================================= */
+
 
 :root {
 
@@ -31,29 +20,33 @@
     --rust: #883322;
     --dark: #283123;
 
-    --gradient-calm:
+    --ink: #283123;
+
+
+    /* ORIGINAL MOODBOARD GRADIENT SYSTEM */
+
+    --gradient-01:
         linear-gradient(
             160deg,
             #EDE9DF 0%,
-            #EDE9DF 34%,
             #ACCAD5 100%
         );
 
-    --gradient-soft:
+    --gradient-02:
         linear-gradient(
             145deg,
             #EACFA3 0%,
             #ACCAD5 100%
         );
 
-    --gradient-attention:
+    --gradient-03:
         linear-gradient(
             155deg,
             #ACCAD5 0%,
             #F0944D 100%
         );
 
-    --gradient-intervention:
+    --gradient-04:
         linear-gradient(
             160deg,
             #EACFA3 0%,
@@ -62,54 +55,31 @@
             #283123 100%
         );
 
-    --gradient-dark:
+    --gradient-05:
         linear-gradient(
             155deg,
             #883322,
             #283123
         );
 
-    --ink: #283123;
 
-    --glass:
-        rgba(
-            237,
-            233,
-            223,
-            .54
-        );
+    --frost:
+        rgba(229, 230, 221, 0.76);
 
-    --glass-strong:
-        rgba(
-            237,
-            233,
-            223,
-            .76
-        );
+    --frost-strong:
+        rgba(231, 231, 222, 0.82);
 
-    --glass-dark:
-        rgba(
-            40,
-            49,
-            35,
-            .46
-        );
+    --frost-blue:
+        rgba(211, 222, 220, 0.76);
 
-    --border-light:
-        rgba(
-            255,
-            255,
-            255,
-            .58
-        );
+    --frost-warm:
+        rgba(231, 217, 199, 0.76);
 
-    --border-dark:
-        rgba(
-            40,
-            49,
-            35,
-            .16
-        );
+    --frost-border:
+        rgba(255, 255, 255, 0.28);
+
+    --soft-shadow:
+        0 16px 38px rgba(40, 49, 35, 0.08);
 
 }
 
@@ -119,18 +89,12 @@
 ========================================================= */
 
 * {
-
-    box-sizing:
-        border-box;
-
+    box-sizing: border-box;
 }
 
 
 html {
-
-    background:
-        #D8D7D1;
-
+    background: #D8D7D1;
 }
 
 
@@ -138,14 +102,11 @@ body {
 
     margin: 0;
 
-    min-height:
-        100vh;
+    min-height: 100vh;
 
-    color:
-        var(--ink);
+    background: #D8D7D1;
 
-    background:
-        #D8D7D1;
+    color: var(--ink);
 
     font-family:
         Futura,
@@ -153,23 +114,17 @@ body {
         "Century Gothic",
         Arial,
         sans-serif;
-
 }
 
 
 button,
 textarea {
-
     font: inherit;
-
 }
 
 
 button {
-
-    cursor:
-        pointer;
-
+    cursor: pointer;
 }
 
 
@@ -177,47 +132,48 @@ button:focus-visible,
 textarea:focus-visible {
 
     outline:
-        3px solid
-        var(--dark);
+        3px solid var(--dark);
 
     outline-offset:
         4px;
-
 }
 
 
 .hidden {
-
-    display:
-        none !important;
-
+    display: none !important;
 }
 
 
 /* =========================================================
-   PHONE
+   OUTER PROTOTYPE
 ========================================================= */
 
 .prototype {
 
-    min-height:
-        100vh;
+    min-height: 100vh;
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    align-items:
-        flex-start;
+    align-items: flex-start;
 
     padding:
         28px
         14px;
-
 }
 
+
+/* =========================================================
+   ONE CONTINUOUS BACKGROUND
+
+   THIS is the important part.
+
+   Hero, wave area, dump area, calendar area,
+   etc. all sit on this SAME background.
+
+   There is no separate cream object anymore.
+========================================================= */
 
 .phone {
 
@@ -230,70 +186,188 @@ textarea:focus-visible {
     min-height:
         844px;
 
-    position:
-        relative;
+    position: relative;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
     padding-bottom:
         108px;
 
-    background:
-        var(--gradient-calm);
-
     border-radius:
         38px;
+
+
+    background:
+
+        radial-gradient(
+            ellipse
+            at 88% 6%,
+            rgba(240, 148, 77, 0.62) 0%,
+            rgba(240, 148, 77, 0.34) 19%,
+            transparent 45%
+        ),
+
+        radial-gradient(
+            ellipse
+            at 12% 24%,
+            rgba(234, 207, 163, 0.68) 0%,
+            rgba(234, 207, 163, 0.34) 30%,
+            transparent 58%
+        ),
+
+        radial-gradient(
+            ellipse
+            at 7% 56%,
+            rgba(172, 202, 213, 0.94) 0%,
+            rgba(172, 202, 213, 0.58) 31%,
+            transparent 62%
+        ),
+
+        radial-gradient(
+            ellipse
+            at 94% 69%,
+            rgba(240, 148, 77, 0.53) 0%,
+            rgba(240, 148, 77, 0.25) 28%,
+            transparent 60%
+        ),
+
+        linear-gradient(
+            165deg,
+
+            #EACFA3 0%,
+
+            #EDE9DF 20%,
+
+            #DDE1DA 38%,
+
+            #ACCAD5 61%,
+
+            #EACFA3 83%,
+
+            #F0944D 112%
+        );
+
 
     box-shadow:
 
         0
         30px
         75px
-        rgba(
-            40,
-            49,
-            35,
-            .17
-        );
-
+        rgba(40, 49, 35, 0.17);
 }
 
 
 /* =========================================================
-   SCREENS
+   LARGE AMBIENT BLOBS
+
+   These sit behind the frost.
+========================================================= */
+
+.phone::before {
+
+    content: "";
+
+    position: absolute;
+
+    width:
+        300px;
+
+    height:
+        300px;
+
+    top:
+        430px;
+
+    right:
+        -155px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(240, 148, 77, 0.38);
+
+    filter:
+        blur(58px);
+
+    pointer-events: none;
+
+    z-index:
+        0;
+}
+
+
+.phone::after {
+
+    content: "";
+
+    position: absolute;
+
+    width:
+        300px;
+
+    height:
+        300px;
+
+    top:
+        755px;
+
+    left:
+        -155px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(172, 202, 213, 0.48);
+
+    filter:
+        blur(62px);
+
+    pointer-events: none;
+
+    z-index:
+        0;
+}
+
+
+/* =========================================================
+   SCREEN STRUCTURE
 ========================================================= */
 
 .screen {
 
-    display:
-        none;
+    display: none;
 
     min-height:
         844px;
 
+    position: relative;
+
+    z-index:
+        1;
+
     padding-bottom:
         28px;
-
 }
 
 
 .screen.active {
-
-    display:
-        block;
-
+    display: block;
 }
 
 
 .content {
 
-    padding:
+    position: relative;
 
+    z-index:
+        2;
+
+    padding:
         12px
         22px
         34px;
-
 }
 
 
@@ -301,15 +375,11 @@ textarea:focus-visible {
 
     padding-top:
         46px;
-
 }
 
 
 /* =========================================================
    TYPOGRAPHY
-
-   Sulphur Point = expressive/editorial
-   Futura/system geometric = functional information
 ========================================================= */
 
 .hero h1,
@@ -322,7 +392,6 @@ textarea:focus-visible {
         "Sulphur Point",
         Futura,
         sans-serif;
-
 }
 
 
@@ -348,7 +417,6 @@ textarea:focus-visible {
 
     text-transform:
         uppercase;
-
 }
 
 
@@ -373,31 +441,27 @@ textarea:focus-visible {
 
     font-weight:
         400;
-
 }
 
 
 .section-label {
 
-    display:
-        block;
+    display: block;
 
     margin-bottom:
         10px;
 
-    font-weight:
-        600;
-
     font-size:
         .97rem;
 
+    font-weight:
+        600;
 }
 
 
 .section-heading {
 
-    display:
-        flex;
+    display: flex;
 
     align-items:
         flex-end;
@@ -410,7 +474,6 @@ textarea:focus-visible {
 
     margin-bottom:
         16px;
-
 }
 
 
@@ -429,7 +492,6 @@ textarea:focus-visible {
 
     font-weight:
         500;
-
 }
 
 
@@ -437,86 +499,61 @@ textarea:focus-visible {
 .muted {
 
     color:
-        rgba(
-            40,
-            49,
-            35,
-            .76
-        );
+        rgba(40, 49, 35, 0.75);
 
     font-size:
         .78rem;
 
     line-height:
         1.4;
-
 }
 
 
 /* =========================================================
    HERO
 
-   Less \"colored header card\"
-   More atmospheric editorial gradient.
+   TRANSPARENT.
+
+   The background you see here is literally
+   the same .phone background underneath.
 ========================================================= */
 
 .hero {
 
     min-height:
-        270px;
+        272px;
 
-    position:
-        relative;
+    position: relative;
 
-    overflow:
-        hidden;
+    overflow: visible;
 
     padding:
-
         49px
         29px
-        82px;
+        48px;
 
     background:
-
-        radial-gradient(
-            circle
-            at 86% 16%,
-            rgba(
-                240,
-                148,
-                77,
-                .48
-            ),
-            transparent 36%
-        ),
-
-        linear-gradient(
-            145deg,
-            #EACFA3 0%,
-            #ACCAD5 64%,
-            #F0944D 130%
-        );
-
+        transparent;
 }
 
 
+/* Soft atmospheric glow only.
+   NOT another surface. */
+
 .hero::before {
 
-    content:
-        "";
+    content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
     width:
-        230px;
+        245px;
 
     height:
-        230px;
+        245px;
 
     top:
-        -100px;
+        -115px;
 
     right:
         -90px;
@@ -525,26 +562,22 @@ textarea:focus-visible {
         50%;
 
     background:
-        rgba(
-            237,
-            233,
-            223,
-            .30
-        );
+        rgba(237, 233, 223, 0.18);
 
     filter:
-        blur(8px);
+        blur(32px);
 
+    pointer-events:
+        none;
 }
 
 
 .hero h1 {
 
-    position:
-        relative;
+    position: relative;
 
     z-index:
-        2;
+        3;
 
     max-width:
         320px;
@@ -562,31 +595,27 @@ textarea:focus-visible {
 
     font-weight:
         500;
-
 }
 
 
 .hero h1 span {
 
-    display:
-        block;
+    display: block;
 
     margin-top:
         10px;
 
     font-weight:
         300;
-
 }
 
 
 .hero-note {
 
-    position:
-        relative;
+    position: relative;
 
     z-index:
-        2;
+        3;
 
     max-width:
         255px;
@@ -604,82 +633,133 @@ textarea:focus-visible {
 
     font-weight:
         500;
-
-}
-
-
-.hero-wave {
-
-    position:
-        absolute;
-
-    left:
-        -9%;
-
-    bottom:
-        -54px;
-
-    width:
-        118%;
-
-    height:
-        105px;
-
-    background:
-        var(--cream);
-
-    border-radius:
-
-        48%
-        52%
-        0
-        0
-        /
-
-        65%
-        57%
-        0
-        0;
-
-    transform:
-        rotate(
-            -4deg
-        );
-
 }
 
 
 /* =========================================================
-   FROSTED SURFACES
+   OLD WAVE IS COMPLETELY REMOVED
+
+   It can remain in your HTML.
+   CSS makes it disappear.
+========================================================= */
+
+.hero-wave {
+
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   SOFT WAVE / HAZE
+
+   This creates the curved feeling WITHOUT
+   covering the continuous background.
+
+   Transparent → hazy → transparent.
+   No solid edge.
+========================================================= */
+
+#homeScreen .content {
+
+    padding-top:
+        40px;
+}
+
+
+#homeScreen .content::before {
+
+    content: "";
+
+    position: absolute;
+
+    left:
+        -12%;
+
+    top:
+        -52px;
+
+    width:
+        124%;
+
+    height:
+        110px;
+
+    border-radius:
+        50% 50% 44% 56% /
+        74% 72% 28% 26%;
+
+
+    background:
+
+        radial-gradient(
+            ellipse
+            at 30% 55%,
+
+            rgba(237, 233, 223, 0.22) 0%,
+
+            rgba(237, 233, 223, 0.13) 36%,
+
+            rgba(237, 233, 223, 0.04) 63%,
+
+            transparent 78%
+        );
+
+
+    filter:
+        blur(12px);
+
+    pointer-events:
+        none;
+
+    z-index:
+        -1;
+}
+
+
+/* =========================================================
+   TRUE FROSTED SURFACE SYSTEM
 ========================================================= */
 
 .glass-card,
 .month-card,
 .task-card,
-.intervention,
-.capacity-note {
+.capacity-note,
+.bottom-nav {
 
-    backdrop-filter:
-        blur(
-            18px
-        );
+    position: relative;
 
-    -webkit-backdrop-filter:
-        blur(
-            18px
-        );
-
-}
-
-
-.glass-card {
+    overflow: hidden;
 
     border:
         1px solid
-        var(--border-light);
+        var(--frost-border);
+
 
     background:
-        var(--glass);
+
+        linear-gradient(
+            135deg,
+
+            rgba(234, 234, 225, 0.80),
+
+            rgba(213, 221, 216, 0.73)
+        );
+
+
+    backdrop-filter:
+
+        blur(50px)
+        saturate(60%)
+        brightness(1.03);
+
+
+    -webkit-backdrop-filter:
+
+        blur(50px)
+        saturate(60%)
+        brightness(1.03);
+
 
     box-shadow:
 
@@ -687,23 +767,68 @@ textarea:focus-visible {
         0
         1px
         0
-        rgba(
-            255,
-            255,
-            255,
-            .62
+        rgba(255, 255, 255, 0.22),
+
+        inset
+        0
+        -1px
+        0
+        rgba(40, 49, 35, 0.035),
+
+        var(--soft-shadow);
+}
+
+
+/* Matte diffusion */
+
+.glass-card::after,
+.month-card::after,
+.task-card::after,
+.capacity-note::after,
+.bottom-nav::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset:
+        0;
+
+    pointer-events:
+        none;
+
+
+    background:
+
+        radial-gradient(
+            circle
+            at 19% 14%,
+            rgba(255, 255, 255, 0.18),
+            transparent 48%
         ),
 
-        0
-        12px
-        30px
-        rgba(
-            40,
-            49,
-            35,
-            .075
+        linear-gradient(
+            130deg,
+            rgba(255, 255, 255, 0.05),
+            rgba(237, 233, 223, 0.11)
         );
 
+
+    z-index:
+        0;
+}
+
+
+.glass-card > *,
+.month-card > *,
+.task-card > *,
+.capacity-note > *,
+.bottom-nav > * {
+
+    position: relative;
+
+    z-index:
+        2;
 }
 
 
@@ -719,6 +844,30 @@ textarea:focus-visible {
     border-radius:
         29px;
 
+
+    background:
+
+        linear-gradient(
+            135deg,
+
+            rgba(237, 236, 227, 0.84),
+
+            rgba(218, 222, 214, 0.78)
+        );
+
+
+    backdrop-filter:
+
+        blur(54px)
+        saturate(58%)
+        brightness(1.03);
+
+
+    -webkit-backdrop-filter:
+
+        blur(54px)
+        saturate(58%)
+        brightness(1.03);
 }
 
 
@@ -750,42 +899,34 @@ textarea {
 
     line-height:
         1.48;
-
 }
 
 
 textarea::placeholder {
 
     color:
-        rgba(
-            40,
-            49,
-            35,
-            .66
-        );
+        rgba(40, 49, 35, 0.62);
 
-    opacity: 1;
-
+    opacity:
+        1;
 }
 
 
 .dump-actions {
 
-    display:
-        flex;
-
-    justify-content:
-        space-between;
+    display: flex;
 
     align-items:
         center;
+
+    justify-content:
+        space-between;
 
     gap:
         14px;
 
     margin-top:
         15px;
-
 }
 
 
@@ -797,21 +938,19 @@ textarea::placeholder {
         125px;
 
     color:
-        rgba(
-            40,
-            49,
-            35,
-            .76
-        );
+        rgba(40, 49, 35, 0.76);
 
     font-size:
         .79rem;
 
     line-height:
         1.25;
-
 }
 
+
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .primary-button,
 .continue-button {
@@ -826,14 +965,12 @@ textarea::placeholder {
 
     font-weight:
         700;
-
 }
 
 
 .primary-button {
 
-    display:
-        flex;
+    display: flex;
 
     align-items:
         center;
@@ -849,11 +986,30 @@ textarea::placeholder {
         17px;
 
     background:
-        var(--gradient-dark);
+        var(--gradient-05);
 
     color:
         #FFFFFF;
+}
 
+
+.continue-button {
+
+    width:
+        100%;
+
+    margin-top:
+        18px;
+
+    padding:
+        13px
+        18px;
+
+    background:
+        var(--gradient-05);
+
+    color:
+        #FFFFFF;
 }
 
 
@@ -866,106 +1022,89 @@ textarea::placeholder {
 
     margin-top:
         42px;
-
 }
 
 
 .month-card {
 
-    position:
-        relative;
-
-    overflow:
-        hidden;
-
     padding:
         21px;
-
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .47
-        );
 
     border-radius:
         30px;
 
+
     background:
 
         linear-gradient(
-            145deg,
-            rgba(
-                237,
-                233,
-                223,
-                .54
-            ),
-            rgba(
-                172,
-                202,
-                213,
-                .57
-            )
+            140deg,
+
+            rgba(226, 230, 224, 0.82),
+
+            rgba(205, 220, 220, 0.76)
         );
 
+
+    backdrop-filter:
+
+        blur(56px)
+        saturate(58%)
+        brightness(1.03);
+
+
+    -webkit-backdrop-filter:
+
+        blur(56px)
+        saturate(58%)
+        brightness(1.03);
 }
 
 
-.month-card::after {
+/* faint warm cloud inside frost */
 
-    content:
-        "";
+.month-card::before {
 
-    position:
-        absolute;
+    content: "";
+
+    position: absolute;
 
     width:
-        160px;
+        190px;
 
     height:
-        160px;
-
-    bottom:
-        -90px;
+        190px;
 
     right:
-        -65px;
+        -100px;
+
+    bottom:
+        -105px;
 
     border-radius:
         50%;
 
     background:
-        rgba(
-            240,
-            148,
-            77,
-            .22
-        );
+        rgba(240, 148, 77, 0.14);
 
     filter:
-        blur(
-            10px
-        );
+        blur(56px);
 
     pointer-events:
         none;
 
+    z-index:
+        1;
 }
 
 
 .date-display {
 
-    position:
-        relative;
+    position: relative;
 
     z-index:
         2;
 
-    display:
-        flex;
+    display: flex;
 
     align-items:
         flex-end;
@@ -975,7 +1114,6 @@ textarea::placeholder {
 
     margin-bottom:
         23px;
-
 }
 
 
@@ -992,21 +1130,18 @@ textarea::placeholder {
 
     font-weight:
         600;
-
 }
 
 
 .date-display div {
 
-    display:
-        flex;
+    display: flex;
 
     flex-direction:
         column;
 
     padding-bottom:
         1px;
-
 }
 
 
@@ -1020,7 +1155,6 @@ textarea::placeholder {
 
     text-transform:
         uppercase;
-
 }
 
 
@@ -1031,33 +1165,27 @@ textarea::placeholder {
 
     font-size:
         .78rem;
-
 }
 
 
-/* Circle language is dominant,
-   not \"traditional calendar\" */
+/* =========================================================
+   CALENDAR
+========================================================= */
 
 .circle-calendar {
 
-    position:
-        relative;
+    position: relative;
 
     z-index:
-        2;
+        3;
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
-        repeat(
-            7,
-            1fr
-        );
+        repeat(7, 1fr);
 
     gap:
         7px;
-
 }
 
 
@@ -1069,8 +1197,7 @@ textarea::placeholder {
     aspect-ratio:
         1;
 
-    display:
-        grid;
+    display: grid;
 
     place-items:
         center;
@@ -1079,33 +1206,30 @@ textarea::placeholder {
 
     border:
         1.5px solid
-        rgba(
-            40,
-            49,
-            35,
-            .56
-        );
+        rgba(40, 49, 35, 0.51);
 
     border-radius:
         50%;
 
     background:
-        rgba(
-            237,
-            233,
-            223,
-            .34
-        );
+        rgba(232, 234, 228, 0.48);
 
     color:
         var(--dark);
+
+    backdrop-filter:
+        blur(18px)
+        saturate(56%);
+
+    -webkit-backdrop-filter:
+        blur(18px)
+        saturate(56%);
 
     font-size:
         .61rem;
 
     font-weight:
         600;
-
 }
 
 
@@ -1116,8 +1240,7 @@ textarea::placeholder {
         var(--dark);
 
     background:
-        var(--orange);
-
+        rgba(240, 148, 77, 0.82);
 }
 
 
@@ -1128,11 +1251,10 @@ textarea::placeholder {
         var(--dark);
 
     background:
-        var(--gradient-dark);
+        var(--gradient-05);
 
     color:
         #FFFFFF;
-
 }
 
 
@@ -1144,21 +1266,23 @@ textarea::placeholder {
         0
         0
         3px
-        var(--cream),
+        rgba(237, 233, 223, 0.82),
 
         0
         0
         0
         5px
         var(--dark);
-
 }
 
 
+/* =========================================================
+   CALENDAR LEGEND
+========================================================= */
+
 .calendar-legend {
 
-    display:
-        flex;
+    display: flex;
 
     flex-wrap:
         wrap;
@@ -1171,33 +1295,25 @@ textarea::placeholder {
         13px;
 
     color:
-        rgba(
-            40,
-            49,
-            35,
-            .84
-        );
+        rgba(40, 49, 35, 0.84);
 
     font-size:
         .69rem;
 
     font-weight:
         600;
-
 }
 
 
 .calendar-legend span {
 
-    display:
-        flex;
+    display: flex;
 
     align-items:
         center;
 
     gap:
         5px;
-
 }
 
 
@@ -1223,39 +1339,33 @@ textarea::placeholder {
 
     font-style:
         normal;
-
 }
 
 
 .legend.clear {
 
     border:
-        1.5px solid
-        var(--dark);
-
+        1.5px solid var(--dark);
 }
 
 
 .legend.attention {
 
     border:
-        1.5px solid
-        var(--dark);
+        1.5px solid var(--dark);
 
     background:
         var(--orange);
-
 }
 
 
 .legend.urgent {
 
     background:
-        var(--gradient-dark);
+        var(--gradient-05);
 
     color:
         #FFFFFF;
-
 }
 
 
@@ -1284,18 +1394,15 @@ textarea::placeholder {
 
     font-weight:
         700;
-
 }
 
 
 .task-stack {
 
-    display:
-        grid;
+    display: grid;
 
     gap:
         11px;
-
 }
 
 
@@ -1307,16 +1414,11 @@ textarea::placeholder {
     min-height:
         88px;
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
-
         38px
-        minmax(
-            0,
-            1fr
-        )
+        minmax(0, 1fr)
         auto;
 
     align-items:
@@ -1328,25 +1430,8 @@ textarea::placeholder {
     padding:
         14px;
 
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .49
-        );
-
     border-radius:
         24px;
-
-    background:
-        rgba(
-            237,
-            233,
-            223,
-            .52
-        );
 
     color:
         var(--dark);
@@ -1354,19 +1439,28 @@ textarea::placeholder {
     text-align:
         left;
 
-    box-shadow:
 
-        inset
-        0
-        1px
-        0
-        rgba(
-            255,
-            255,
-            255,
-            .45
+    background:
+
+        linear-gradient(
+            135deg,
+
+            rgba(229, 230, 221, 0.80),
+
+            rgba(212, 219, 214, 0.75)
         );
 
+
+    backdrop-filter:
+
+        blur(50px)
+        saturate(58%);
+
+
+    -webkit-backdrop-filter:
+
+        blur(50px)
+        saturate(58%);
 }
 
 
@@ -1374,31 +1468,18 @@ textarea::placeholder {
 
     border:
         1px solid
-        rgba(
-            136,
-            51,
-            34,
-            .63
-        );
+        rgba(136, 51, 34, 0.30);
+
 
     background:
 
         linear-gradient(
-            105deg,
-            rgba(
-                172,
-                202,
-                213,
-                .52
-            ),
-            rgba(
-                240,
-                148,
-                77,
-                .42
-            )
-        );
+            120deg,
 
+            rgba(210, 220, 218, 0.82),
+
+            rgba(229, 211, 192, 0.79)
+        );
 }
 
 
@@ -1410,8 +1491,7 @@ textarea::placeholder {
     height:
         38px;
 
-    display:
-        grid;
+    display: grid;
 
     place-items:
         center;
@@ -1427,14 +1507,13 @@ textarea::placeholder {
 
     font-weight:
         700;
-
 }
 
 
 .task-main {
 
-    min-width: 0;
-
+    min-width:
+        0;
 }
 
 
@@ -1448,7 +1527,6 @@ textarea::placeholder {
 
     line-height:
         1.15;
-
 }
 
 
@@ -1464,7 +1542,6 @@ textarea::placeholder {
 
     line-height:
         1.35;
-
 }
 
 
@@ -1484,9 +1561,12 @@ textarea::placeholder {
 
     font-weight:
         600;
-
 }
 
+
+/* =========================================================
+   STATUS CHIPS
+========================================================= */
 
 .task-status {
 
@@ -1502,44 +1582,42 @@ textarea::placeholder {
 
     font-weight:
         700;
-
 }
 
 
 .task-status.urgent {
 
     background:
-        var(--gradient-dark);
+        var(--gradient-05);
 
     color:
         #FFFFFF;
-
 }
 
 
 .task-status.soon {
 
     border:
-        1px solid
-        var(--dark);
+        1px solid var(--dark);
 
     background:
-        var(--orange);
-
+        rgba(240, 148, 77, 0.80);
 }
 
 
 .task-status.later {
 
     border:
-        1px solid
-        var(--dark);
+        1px solid var(--dark);
 
     background:
-        var(--blue);
-
+        rgba(172, 202, 213, 0.80);
 }
 
+
+/* =========================================================
+   CAPACITY NOTE
+========================================================= */
 
 .capacity-note {
 
@@ -1550,36 +1628,31 @@ textarea::placeholder {
         14px
         15px;
 
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .43
-        );
-
     border-radius:
         19px;
+
 
     background:
 
         linear-gradient(
-            120deg,
-            rgba(
-                234,
-                207,
-                163,
-                .50
-            ),
-            rgba(
-                172,
-                202,
-                213,
-                .48
-            )
+            125deg,
+
+            rgba(232, 226, 210, 0.80),
+
+            rgba(210, 221, 219, 0.78)
         );
 
+
+    backdrop-filter:
+
+        blur(46px)
+        saturate(58%);
+
+
+    -webkit-backdrop-filter:
+
+        blur(46px)
+        saturate(58%);
 }
 
 
@@ -1588,7 +1661,6 @@ textarea::placeholder {
 
     display:
         block;
-
 }
 
 
@@ -1596,7 +1668,6 @@ textarea::placeholder {
 
     font-size:
         .81rem;
-
 }
 
 
@@ -1610,28 +1681,6 @@ textarea::placeholder {
 
     line-height:
         1.35;
-
-}
-
-
-.continue-button {
-
-    width:
-        100%;
-
-    margin-top:
-        18px;
-
-    padding:
-        13px
-        18px;
-
-    background:
-        var(--gradient-dark);
-
-    color:
-        #FFFFFF;
-
 }
 
 
@@ -1641,14 +1690,11 @@ textarea::placeholder {
 
 .intervention {
 
-    position:
-        relative;
+    position: relative;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
-    display:
-        flex;
+    display: flex;
 
     align-items:
         flex-start;
@@ -1664,18 +1710,13 @@ textarea::placeholder {
 
     border:
         1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .30
-        );
+        rgba(255, 255, 255, 0.20);
 
     border-radius:
         24px;
 
     background:
-        var(--gradient-intervention);
+        var(--gradient-04);
 
     color:
         #FFFFFF;
@@ -1685,47 +1726,36 @@ textarea::placeholder {
         0
         14px
         32px
-        rgba(
-            40,
-            49,
-            35,
-            .18
-        );
-
+        rgba(40, 49, 35, 0.18);
 }
 
 
 .intervention::after {
 
-    content:
-        "";
+    content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
     width:
-        130px;
+        140px;
 
     height:
-        130px;
+        140px;
 
     top:
-        -70px;
+        -75px;
 
     right:
-        -35px;
+        -40px;
 
     border-radius:
         50%;
 
     background:
-        rgba(
-            255,
-            255,
-            255,
-            .12
-        );
+        rgba(255, 255, 255, 0.09);
 
+    filter:
+        blur(14px);
 }
 
 
@@ -1737,40 +1767,26 @@ textarea::placeholder {
     height:
         39px;
 
-    display:
-        grid;
+    display: grid;
 
     place-items:
         center;
 
     flex:
-        0
-        0
-        auto;
+        0 0 auto;
 
     border:
         1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .46
-        );
+        rgba(255, 255, 255, 0.38);
 
     border-radius:
         50%;
 
     background:
-        rgba(
-            40,
-            49,
-            35,
-            .36
-        );
+        rgba(40, 49, 35, 0.35);
 
     font-weight:
         800;
-
 }
 
 
@@ -1782,7 +1798,6 @@ textarea::placeholder {
 
     font-size:
         1.05rem;
-
 }
 
 
@@ -1798,33 +1813,44 @@ textarea::placeholder {
 
     line-height:
         1.35;
-
 }
 
 
-/* When there IS an intervention,
-   the whole phone warms/darkens.
-
-   This makes urgency environmental,
-   not just a badge.
-*/
+/* =========================================================
+   DEADLINE MODE
+========================================================= */
 
 .phone.deadline-mode {
 
     background:
 
+        radial-gradient(
+            ellipse
+            at 25% 10%,
+            rgba(234, 207, 163, 0.76),
+            transparent 38%
+        ),
+
+        radial-gradient(
+            ellipse
+            at 82% 46%,
+            rgba(240, 148, 77, 0.66),
+            transparent 44%
+        ),
+
         linear-gradient(
-            180deg,
+            165deg,
 
             #EACFA3 0%,
 
-            #EDE9DF 29%,
+            #EDE9DF 28%,
 
-            #F0944D 92%,
+            #F0944D 62%,
 
-            #883322 118%
+            #883322 91%,
+
+            #283123 120%
         );
-
 }
 
 
@@ -1836,14 +1862,12 @@ textarea::placeholder {
 
     margin-bottom:
         31px;
-
 }
 
 
 .progress-section {
 
-    display:
-        flex;
+    display: flex;
 
     align-items:
         center;
@@ -1860,22 +1884,11 @@ textarea::placeholder {
 
     border-top:
         1px solid
-        rgba(
-            40,
-            49,
-            35,
-            .17
-        );
+        rgba(40, 49, 35, 0.17);
 
     border-bottom:
         1px solid
-        rgba(
-            40,
-            49,
-            35,
-            .17
-        );
-
+        rgba(40, 49, 35, 0.17);
 }
 
 
@@ -1891,12 +1904,9 @@ textarea::placeholder {
         1;
 
     flex:
-        0
-        0
-        auto;
+        0 0 auto;
 
-    display:
-        grid;
+    display: grid;
 
     place-items:
         center;
@@ -1904,27 +1914,17 @@ textarea::placeholder {
     border-radius:
         50%;
 
+
     background:
 
         conic-gradient(
 
             var(--orange)
-            calc(
-                var(--percent)
-                *
-                1%
-            ),
+            calc(var(--percent) * 1%),
 
-            rgba(
-                40,
-                49,
-                35,
-                .12
-            )
+            rgba(40, 49, 35, 0.12)
             0
-
         );
-
 }
 
 
@@ -1936,8 +1936,7 @@ textarea::placeholder {
     aspect-ratio:
         1;
 
-    display:
-        grid;
+    display: grid;
 
     place-items:
         center;
@@ -1946,17 +1945,16 @@ textarea::placeholder {
         50%;
 
     background:
+        rgba(230, 230, 220, 0.83);
 
-        rgba(
-            237,
-            233,
-            223,
-            .86
-        );
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
 
     text-align:
         center;
-
 }
 
 
@@ -1971,7 +1969,6 @@ textarea::placeholder {
 
     font-size:
         1.25rem;
-
 }
 
 
@@ -1979,7 +1976,6 @@ textarea::placeholder {
 
     font-size:
         .53rem;
-
 }
 
 
@@ -1991,39 +1987,30 @@ textarea::placeholder {
 
     min-height:
         730px;
-
 }
 
 
-/* Focus becomes the quietest screen. */
+/* IMPORTANT:
+   No new solid background here either.
+   The continuous phone background remains visible.
+*/
 
 #focusScreen {
 
     background:
+        rgba(237, 233, 223, 0.26);
 
-        linear-gradient(
-            180deg,
-            rgba(
-                237,
-                233,
-                223,
-                .84
-            ),
-            rgba(
-                172,
-                202,
-                213,
-                .24
-            )
-        );
+    backdrop-filter:
+        saturate(72%);
 
+    -webkit-backdrop-filter:
+        saturate(72%);
 }
 
 
 .focus-summary {
 
-    display:
-        flex;
+    display: flex;
 
     align-items:
         center;
@@ -2036,31 +2023,21 @@ textarea::placeholder {
 
     border-bottom:
         1px solid
-        rgba(
-            40,
-            49,
-            35,
-            .16
-        );
-
+        rgba(40, 49, 35, 0.16);
 }
 
 
 .progress-ring.large {
 
-    position:
-        relative;
-
+    position: relative;
 }
 
 
 .progress-ring.large::before {
 
-    content:
-        "";
+    content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
     width:
         71px;
@@ -2072,19 +2049,22 @@ textarea::placeholder {
         50%;
 
     background:
-        var(--cream);
+        rgba(231, 231, 221, 0.87);
 
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
 }
 
 
 .progress-ring.large strong {
 
-    position:
-        relative;
+    position: relative;
 
     z-index:
         2;
-
 }
 
 
@@ -2104,15 +2084,17 @@ textarea::placeholder {
 
     font-weight:
         500;
-
 }
 
+
+/* =========================================================
+   STEPS
+========================================================= */
 
 .steps-section {
 
     margin-top:
         29px;
-
 }
 
 
@@ -2123,7 +2105,6 @@ textarea::placeholder {
 
     gap:
         10px;
-
 }
 
 
@@ -2132,8 +2113,7 @@ textarea::placeholder {
     min-height:
         56px;
 
-    display:
-        flex;
+    display: flex;
 
     align-items:
         center;
@@ -2146,24 +2126,42 @@ textarea::placeholder {
 
     border:
         1px solid
-        rgba(
-            40,
-            49,
-            35,
-            .13
-        );
+        rgba(255, 255, 255, 0.25);
 
     border-radius:
         20px;
 
+
     background:
-        rgba(
-            237,
-            233,
-            223,
-            .37
+
+        linear-gradient(
+            135deg,
+
+            rgba(229, 229, 220, 0.77),
+
+            rgba(214, 220, 215, 0.71)
         );
 
+
+    backdrop-filter:
+
+        blur(40px)
+        saturate(58%);
+
+
+    -webkit-backdrop-filter:
+
+        blur(40px)
+        saturate(58%);
+
+
+    box-shadow:
+
+        inset
+        0
+        1px
+        0
+        rgba(255, 255, 255, 0.18);
 }
 
 
@@ -2182,18 +2180,11 @@ textarea::placeholder {
         center;
 
     flex:
-        0
-        0
-        auto;
+        0 0 auto;
 
     border:
         1px solid
-        rgba(
-            40,
-            49,
-            35,
-            .60
-        );
+        rgba(40, 49, 35, 0.60);
 
     border-radius:
         50%;
@@ -2203,7 +2194,6 @@ textarea::placeholder {
 
     font-weight:
         700;
-
 }
 
 
@@ -2214,7 +2204,6 @@ textarea::placeholder {
 
     text-decoration:
         line-through;
-
 }
 
 
@@ -2222,34 +2211,22 @@ textarea::placeholder {
 
     border:
         1px solid
-        rgba(
-            136,
-            51,
-            34,
-            .50
-        );
+        rgba(136, 51, 34, 0.31);
+
 
     background:
 
         linear-gradient(
             110deg,
-            rgba(
-                172,
-                202,
-                213,
-                .47
-            ),
-            rgba(
-                234,
-                207,
-                163,
-                .52
-            )
+
+            rgba(209, 221, 218, 0.81),
+
+            rgba(230, 219, 199, 0.79)
         );
+
 
     font-weight:
         700;
-
 }
 
 
@@ -2257,7 +2234,6 @@ textarea::placeholder {
 
     margin-top:
         20px;
-
 }
 
 
@@ -2268,7 +2244,6 @@ textarea::placeholder {
 
     padding-bottom:
         42px;
-
 }
 
 
@@ -2278,19 +2253,13 @@ textarea::placeholder {
         220px;
 
     color:
-        rgba(
-            40,
-            49,
-            35,
-            .68
-        );
+        rgba(40, 49, 35, 0.68);
 
     font-size:
         .74rem;
 
     line-height:
         1.4;
-
 }
 
 
@@ -2302,21 +2271,18 @@ textarea::placeholder {
 
     margin-top:
         95px;
-
 }
 
 
 .empty-focus h2 {
 
-    margin:
-        0;
+    margin: 0;
 
     font-size:
         2.4rem;
 
     font-weight:
         400;
-
 }
 
 
@@ -2332,21 +2298,16 @@ textarea::placeholder {
 
     line-height:
         1.4;
-
 }
 
 
 /* =========================================================
-   FLOATING NAV
-
-   Now inspired much more closely
-   by that moodboard reference.
+   FROSTED FLOATING NAV
 ========================================================= */
 
 .bottom-nav {
 
-    position:
-        absolute;
+    position: absolute;
 
     left:
         15px;
@@ -2360,14 +2321,10 @@ textarea::placeholder {
     min-height:
         74px;
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
-        repeat(
-            5,
-            1fr
-        );
+        repeat(5, 1fr);
 
     align-items:
         center;
@@ -2375,48 +2332,52 @@ textarea::placeholder {
     padding:
         7px;
 
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .60
-        );
-
     border-radius:
         29px;
 
+
     background:
-        rgba(
-            237,
-            233,
-            223,
-            .70
+
+        linear-gradient(
+            135deg,
+
+            rgba(229, 231, 225, 0.85),
+
+            rgba(211, 220, 217, 0.81)
         );
+
 
     backdrop-filter:
-        blur(
-            22px
-        );
+
+        blur(58px)
+        saturate(54%)
+        brightness(1.03);
+
 
     -webkit-backdrop-filter:
-        blur(
-            22px
-        );
+
+        blur(58px)
+        saturate(54%)
+        brightness(1.03);
+
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.28);
+
 
     box-shadow:
 
+        inset
         0
-        11px
-        29px
-        rgba(
-            40,
-            49,
-            35,
-            .12
-        );
+        1px
+        0
+        rgba(255, 255, 255, 0.20),
 
+        0
+        14px
+        30px
+        rgba(40, 49, 35, 0.10);
 }
 
 
@@ -2425,8 +2386,7 @@ textarea::placeholder {
     min-height:
         53px;
 
-    display:
-        flex;
+    display: flex;
 
     flex-direction:
         column;
@@ -2440,7 +2400,8 @@ textarea::placeholder {
     gap:
         3px;
 
-    border: 0;
+    border:
+        0;
 
     border-radius:
         19px;
@@ -2456,7 +2417,6 @@ textarea::placeholder {
 
     font-weight:
         700;
-
 }
 
 
@@ -2464,20 +2424,13 @@ textarea::placeholder {
 
     font-size:
         .92rem;
-
 }
 
 
 .nav-button.active {
 
     background:
-        rgba(
-            172,
-            202,
-            213,
-            .78
-        );
-
+        rgba(172, 202, 213, 0.52);
 }
 
 
@@ -2497,18 +2450,13 @@ textarea::placeholder {
 
     border:
         4px solid
-        rgba(
-            237,
-            233,
-            223,
-            .92
-        );
+        rgba(237, 233, 223, 0.72);
 
     border-radius:
         50%;
 
     background:
-        var(--gradient-attention);
+        var(--gradient-03);
 
     color:
         var(--dark);
@@ -2518,19 +2466,13 @@ textarea::placeholder {
         0
         8px
         20px
-        rgba(
-            136,
-            51,
-            34,
-            .19
-        );
+        rgba(136, 51, 34, 0.16);
 
     font-size:
         1.8rem;
 
     font-weight:
         400;
-
 }
 
 
@@ -2543,8 +2485,8 @@ textarea::placeholder {
 
     .prototype {
 
-        padding: 0;
-
+        padding:
+            0;
     }
 
 
@@ -2556,12 +2498,12 @@ textarea::placeholder {
         min-height:
             100vh;
 
-        border-radius: 0;
+        border-radius:
+            0;
 
-        box-shadow: none;
-
+        box-shadow:
+            none;
     }
-
 }
 
 
@@ -2579,7 +2521,5 @@ textarea::placeholder {
 
         transition:
             none !important;
-
     }
-
 }
